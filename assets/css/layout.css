@@ -1,12 +1,40 @@
+/* Declare Font Families for Internet Explorer < 9 */
+@font-face {
+  font-family: "ff-dagny-web-pro-1";
+  src: url("../font/DagnyWebPro.eot");
+  font-style: normal;
+  font-weight: 400;
+}
+/* Declare Font Families for WOFF-capable browsers */
+@font-face {
+  font-family: "ff-dagny-web-pro-1";
+  src: url(../font/DagnyWebPro-Xlight.woff) format("woff");
+  font-style: normal;
+  font-weight: 200;
+}
+@font-face {
+  font-family: "ff-dagny-web-pro-1";
+  src: url(../font/DagnyWebPro.woff) format("woff");
+  font-style: normal;
+  font-weight: 400;
+}
+@font-face {
+  font-family: "ff-dagny-web-pro-1";
+  src: url(../font/DagnyWebPro-Bold.woff) format("woff");
+  font-style: normal;
+  font-weight: 600;
+}
+
+
 
 body {
 	width: 680px;
 	margin: 0 auto;
-	font-family: Helvetica, Arial, sans-serif;
+	font-family: "ff-dagny-web-pro-1","ff-dagny-web-pro-2", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 h1 {
-	margin: 1em 0;
+	margin: 1em 0 0;
 	font-size: 2em;
 	font-weight: bold;
 }
@@ -35,6 +63,7 @@ p {
 	color: rgb(255,255,255);
 	font-size: 4em;
 	text-align: center;
+	text-shadow: 0 0 5px rgb(50,50,50);
 	font-weight: bold;
 	line-height: 1;
 

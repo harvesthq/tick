@@ -141,7 +141,7 @@
       Ticker.__super__.constructor.apply(this, arguments);
     }
 
-    Ticker.prototype.build_container = function(i) {
+    Ticker.prototype.build_container = function() {
       return $('<span class="wheel"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span>').appendTo(this.element);
     };
 
@@ -152,18 +152,21 @@
     };
 
     /*
-    		Just for testing... Useful in combination with live data streamed from a server
+    		Just for testing... Useful later in combination with live data streamed from a server
     */
 
     Ticker.prototype.tick = function() {
       Ticker.__super__.tick.apply(this, arguments);
-      if (this.value === 162007005) this.refresh_delay(400);
-      if (this.value === 162007030) return this.refresh_delay(2000);
+      if (this.value === 162007012) return this.refresh_delay(200);
     };
 
     return Ticker;
 
   })(AbstractTicker);
+
+  /*
+  	[NOT IN USE ANYMORE]
+  */
 
   SlidingTicker = (function(_super) {
 

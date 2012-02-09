@@ -156,8 +156,7 @@ class Ticker extends AbstractTicker
 	###
 	tick: () ->
 		super
-		this.refresh_delay( 400  ) if @value == 162007005
-		this.refresh_delay( 2000 ) if @value == 162007030
+		this.refresh_delay( 200 ) if @value == 162007012
 
 
 

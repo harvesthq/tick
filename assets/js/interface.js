@@ -4,7 +4,7 @@ $( document ).ready( function()
 
 	$( '.tracked' ).ticker(
 	{
-		delay: 1000,
+		delay: 800,
 		incremental: 1,
 		seperators: true,
 		autostart: true
