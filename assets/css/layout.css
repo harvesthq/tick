@@ -1,0 +1,52 @@
+
+body {
+	width: 680px;
+	margin: 0 auto;
+}
+
+h1 {
+	margin: 1em 0;
+	font-size: 2em;
+	font-weight: bold;
+}
+
+p {
+	margin-bottom: 1.5em;
+	line-height: 1.5;
+}
+
+
+
+/*
+	Ticker styles
+*/
+
+.ticker {
+	display: inline-block;
+	padding: 10px;
+
+	color: rgb(255,255,255);
+	background-color: rgb(20,20,20);
+}
+	.ticker span {
+		display: inline-block;
+
+		width: 50px;
+		height: 60px;
+
+		border-right: 1px solid rgb(120,120,120);
+		border-left: 1px solid rgb(120,120,120);
+		margin-right: 2px;
+
+		font-size: 1.5em;
+		background: url('../img/sprite.gif');
+		text-indent: -999em;
+	}
+
+	.ticker .seperator {
+		width: 20px;
+		padding-right: 2px;
+		padding-left: 0;
+		border: 0 none;
+		background: url('../img/seperator.gif') no-repeat top center;
+	}
