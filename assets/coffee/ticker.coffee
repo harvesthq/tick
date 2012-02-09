@@ -73,7 +73,7 @@ class AbstractTicker
 				# insert the seperators at their designated position
 				this.build_seperator( @seperators[ i ]) if @options.seperators and @seperators[ i ]
 
-				containers.push( this.build_container(i))
+				containers.push( this.build_container( i ))
 
 
 		# insert/update the corresponding digit into each container
@@ -140,24 +140,58 @@ class AbstractTicker
 
 
 
-###
-	jQuery override based on the abstracted code to provide more complex animation
-###
+
+
 class Ticker extends AbstractTicker
 
 	build_container: () ->
-		super.bind( 'updateDigit', (e, digit) ->
-			$( this ).animate({ backgroundPositionY: digit * -65 }, 500 )
+		$( '<span class="wheel"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span>' ).appendTo( @element )
+
+	update_container: (container, digit) ->
+		$( container ).animate({ top: digit * -96 }, @options.delay )
+
+
+	###
+		Just for testing... Useful later in combination with live data streamed from a server
+	###
+	tick: () ->
+		super
+		this.refresh_delay( 400  ) if @value == 162007005
+		this.refresh_delay( 2000 ) if @value == 162007030
+
+
+
+
+
+
+###
+	[NOT IN USE ANYMORE]
+###
+class SlidingTicker extends AbstractTicker
+
+	build_container: () ->
+
+		super.bind( 'updateDigit', (e, target, old, digit) =>
+
+			target.animate(
+					{ backgroundPositionY: digit * -65 },
+					{ duration: 500 })
+
 		)
 
 	update_container: (container, digit) ->
-		super.triggerHandler( 'updateDigit', digit )
-		
+		target	= $( container )
+		old		= target.html()
+
+		super.triggerHandler( 'updateDigit', [target, old, digit])
+
 
 	tick: () ->
 		super
-		this.refresh_delay( 100  ) if @value == 162007000
-		this.refresh_delay( 2000 ) if @value == 162007030
+
+		# Just for testing... Maybe used for live data from the server
+#		this.refresh_delay( 100  ) if @value == 162007005
+#		this.refresh_delay( 2000 ) if @value == 162007030
 
 
 

@@ -1,0 +1,8 @@
+
+## TODO
+
+- Asset preloading
+- Different animation styles
+- Provide different styles out-of-the-box
+- Prevent box resizing on startup
+- Make work in Firefox/Gecko browsers

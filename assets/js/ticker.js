@@ -1,5 +1,5 @@
 (function() {
-  var $, AbstractTicker, Ticker,
+  var $, AbstractTicker, SlidingTicker, Ticker,
     __hasProp = Object.prototype.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
 
@@ -133,10 +133,6 @@
 
   })();
 
-  /*
-  	jQuery override based on the abstracted code to provide more complex animation
-  */
-
   Ticker = (function(_super) {
 
     __extends(Ticker, _super);
@@ -145,25 +141,61 @@
       Ticker.__super__.constructor.apply(this, arguments);
     }
 
-    Ticker.prototype.build_container = function() {
-      return Ticker.__super__.build_container.apply(this, arguments).bind('updateDigit', function(e, digit) {
-        return $(this).animate({
-          backgroundPositionY: digit * -65
-        }, 500);
-      });
+    Ticker.prototype.build_container = function(i) {
+      return $('<span class="wheel"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span>').appendTo(this.element);
     };
 
     Ticker.prototype.update_container = function(container, digit) {
-      return Ticker.__super__.update_container.apply(this, arguments).triggerHandler('updateDigit', digit);
+      return $(container).animate({
+        top: digit * -96
+      }, this.options.delay);
     };
+
+    /*
+    		Just for testing... Useful in combination with live data streamed from a server
+    */
 
     Ticker.prototype.tick = function() {
       Ticker.__super__.tick.apply(this, arguments);
-      if (this.value === 162007000) this.refresh_delay(100);
+      if (this.value === 162007005) this.refresh_delay(400);
       if (this.value === 162007030) return this.refresh_delay(2000);
     };
 
     return Ticker;
+
+  })(AbstractTicker);
+
+  SlidingTicker = (function(_super) {
+
+    __extends(SlidingTicker, _super);
+
+    function SlidingTicker() {
+      SlidingTicker.__super__.constructor.apply(this, arguments);
+    }
+
+    SlidingTicker.prototype.build_container = function() {
+      var _this = this;
+      return SlidingTicker.__super__.build_container.apply(this, arguments).bind('updateDigit', function(e, target, old, digit) {
+        return target.animate({
+          backgroundPositionY: digit * -65
+        }, {
+          duration: 500
+        });
+      });
+    };
+
+    SlidingTicker.prototype.update_container = function(container, digit) {
+      var old, target;
+      target = $(container);
+      old = target.html();
+      return SlidingTicker.__super__.update_container.apply(this, arguments).triggerHandler('updateDigit', [target, old, digit]);
+    };
+
+    SlidingTicker.prototype.tick = function() {
+      return SlidingTicker.__super__.tick.apply(this, arguments);
+    };
+
+    return SlidingTicker;
 
   })(AbstractTicker);
 
