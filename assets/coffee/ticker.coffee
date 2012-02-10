@@ -143,9 +143,46 @@ class StandardTicker
 
 class Ticker extends StandardTicker
 
-	update_container: (container, digit) ->
-		super
+	build_container: (i) ->
+		val = String( @value ).split( '' )[ i ]
+		$( "<span class='wrapper'>
+				<span class='old'>#{val}</span>
+				<span class='old-move'>#{val}</span>
+				<span class='new'></span>
+				<span class='new-move'>#{val}</span>
+			</span>"
+		)
+		.appendTo( @element )
 
+
+	update_container: (container, digit) ->
+
+		if( $( container ).children( '.new' ).html() != digit )
+
+			move = $( container ).children( '.old-move' )
+
+			move.animate(
+				{ height: 0, 'background-color': 'rgb(100,100,100)' },
+				{ duration: @options.delay / 4, step: (now, fx) =>
+#					console.log now
+
+				complete: =>
+
+					move.html( digit )
+						.removeAttr( 'style' )
+
+					new_move = $( container ).children( '.new-move' ).html( digit )
+
+					new_move.animate(
+						{ height: '100%' },
+						{ duration: @options.delay / 4, complete: =>
+							new_move.removeAttr( 'style' )
+							$( container ).children( '.old' ).html( digit )
+						})
+				})
+
+
+		$( container ).children( '.new' ).html( digit )
 
 
 

@@ -141,8 +141,40 @@
       Ticker.__super__.constructor.apply(this, arguments);
     }
 
+    Ticker.prototype.build_container = function(i) {
+      var val;
+      val = String(this.value).split('')[i];
+      return $("<span class='wrapper'>				<span class='old'>" + val + "</span>				<span class='old-move'>" + val + "</span>				<span class='new'></span>				<span class='new-move'>" + val + "</span>			</span>").appendTo(this.element);
+    };
+
     Ticker.prototype.update_container = function(container, digit) {
-      return Ticker.__super__.update_container.apply(this, arguments);
+      var move,
+        _this = this;
+      if ($(container).children('.new').html() !== digit) {
+        move = $(container).children('.old-move');
+        move.animate({
+          height: 0,
+          'background-color': 'rgb(100,100,100)'
+        }, {
+          duration: this.options.delay / 4,
+          step: function(now, fx) {},
+          complete: function() {
+            var new_move;
+            move.html(digit).removeAttr('style');
+            new_move = $(container).children('.new-move').html(digit);
+            return new_move.animate({
+              height: '100%'
+            }, {
+              duration: _this.options.delay / 4,
+              complete: function() {
+                new_move.removeAttr('style');
+                return $(container).children('.old').html(digit);
+              }
+            });
+          }
+        });
+      }
+      return $(container).children('.new').html(digit);
     };
 
     return Ticker;

@@ -51,8 +51,93 @@ p {
 	Tick.flip
 */
 .ticker.flip {
-	
+	position: relative;
+	float: left;
+
+	padding: 0 10px;
+	height: 96px;
+	border-radius: 5px;
+
+	color: rgb(255,255,255);
+	line-height: 1;
+
+	font: {
+		size: 4em;
+		weight: bold;
+	}
+
+	text: {
+		align: center;
+		shadow: 0 0 3px rgb(50,50,50);
+	}
 }
+	.ticker.flip .seperator {
+		margin: 0 10px 0 5px;
+	}
+	.ticker.flip .wrapper {
+		position: relative;
+		display: inline-block;
+		margin-right: 10px;
+		width: 50px;
+		color: #333;
+		overflow: hidden;
+		border-radius: 4px;
+		box-shadow: 0 0 5px #BBB;
+	}
+		.ticker.flip .wrapper:after {
+			position: absolute;
+			display: block;
+			top: 50%;
+			z-index: 10000;
+			display: block;
+			height: 2px;
+			width: 100%;
+			content: '';
+			background-color: white;
+
+		}
+
+		.ticker.flip .old {
+			display: block;
+			border-radius: 4px;
+
+			background: rgb(200,200,200);
+		}
+		.ticker.flip .new {
+			overflow: hidden;
+			position: absolute;
+			z-index: 998;
+			top: 0;
+
+			display: block;
+			width: 100%;
+			height: 50%;
+			border-radius: 4px 4px 0 0;
+
+			background: rgb(200,200,200);
+		}
+
+		.ticker.flip .old-move,
+		.ticker.flip .new-move {
+			overflow: hidden;
+			position: absolute;
+			display: block;
+			width: 100%;
+			border-radius: 4px 4px 0 0;
+			background-color: rgb(200,200,200);
+		}
+
+		.ticker.flip .old-move {
+			z-index: 999;
+			bottom: 50%;
+			height: 50%;
+		}
+		.ticker.flip .new-move {
+			z-index: 997;
+			height: 50%;
+			top: 0;
+		}
+
 
 
 
