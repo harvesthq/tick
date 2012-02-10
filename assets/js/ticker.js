@@ -1,5 +1,5 @@
 (function() {
-  var $, AbstractTicker, SlidingTicker, Ticker,
+  var $, ScrollingTicker, SlidingTicker, StandardTicker, Ticker,
     __hasProp = Object.prototype.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
 
@@ -42,9 +42,9 @@
   		onStop
   */
 
-  AbstractTicker = (function() {
+  StandardTicker = (function() {
 
-    function AbstractTicker(element, options) {
+    function StandardTicker(element, options) {
       this.element = element;
       if (options == null) options = {};
       this.options = {
@@ -58,7 +58,7 @@
       if (this.options.autostart) this.start();
     }
 
-    AbstractTicker.prototype.render = function() {
+    StandardTicker.prototype.render = function() {
       var container, containers, digits, i, _len, _ref, _results;
       digits = String(this.value).split('');
       containers = this.element.children(':not(.seperator)');
@@ -82,19 +82,19 @@
     		These methods will create all visible elements and manipulate the output
     */
 
-    AbstractTicker.prototype.build_container = function(i) {
+    StandardTicker.prototype.build_container = function(i) {
       return $('<span></span>').appendTo(this.element);
     };
 
-    AbstractTicker.prototype.build_seperator = function(content) {
+    StandardTicker.prototype.build_seperator = function(content) {
       return $("<span class='seperator'>" + content + "</span>").appendTo(this.element);
     };
 
-    AbstractTicker.prototype.update_container = function(container, digit) {
+    StandardTicker.prototype.update_container = function(container, digit) {
       return $(container).html(digit);
     };
 
-    AbstractTicker.prototype.refresh_delay = function(new_delay) {
+    StandardTicker.prototype.refresh_delay = function(new_delay) {
       var _this = this;
       clearInterval(this.periodic);
       this.options.delay = new_delay;
@@ -107,7 +107,7 @@
     		Events
     */
 
-    AbstractTicker.prototype.tick = function() {
+    StandardTicker.prototype.tick = function() {
       this.value += this.options.incremental;
       return this.render();
     };
@@ -116,7 +116,7 @@
     		Controls for the ticker
     */
 
-    AbstractTicker.prototype.start = function() {
+    StandardTicker.prototype.start = function() {
       var _this = this;
       this.element.empty();
       this.render();
@@ -125,11 +125,11 @@
       }, this.options.delay);
     };
 
-    AbstractTicker.prototype.stop = function() {
+    StandardTicker.prototype.stop = function() {
       return clearInterval(this.periodic);
     };
 
-    return AbstractTicker;
+    return StandardTicker;
 
   })();
 
@@ -141,32 +141,41 @@
       Ticker.__super__.constructor.apply(this, arguments);
     }
 
-    Ticker.prototype.build_container = function() {
+    Ticker.prototype.update_container = function(container, digit) {
+      return Ticker.__super__.update_container.apply(this, arguments);
+    };
+
+    return Ticker;
+
+  })(StandardTicker);
+
+  ScrollingTicker = (function(_super) {
+
+    __extends(ScrollingTicker, _super);
+
+    function ScrollingTicker() {
+      ScrollingTicker.__super__.constructor.apply(this, arguments);
+    }
+
+    ScrollingTicker.prototype.build_container = function() {
       return $('<span class="wheel"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span>').appendTo(this.element);
     };
 
-    Ticker.prototype.update_container = function(container, digit) {
+    ScrollingTicker.prototype.update_container = function(container, digit) {
       return $(container).animate({
         top: digit * -96
       }, this.options.delay);
     };
 
-    /*
-    		Just for testing... Useful later in combination with live data streamed from a server
-    */
-
-    Ticker.prototype.tick = function() {
-      Ticker.__super__.tick.apply(this, arguments);
-      if (this.value === 162007012) return this.refresh_delay(200);
+    ScrollingTicker.prototype.tick = function() {
+      if (this.value === 162007012) {
+        return ScrollingTicker.__super__.tick.call(this, this.refresh_delay(200));
+      }
     };
 
-    return Ticker;
+    return ScrollingTicker;
 
-  })(AbstractTicker);
-
-  /*
-  	[NOT IN USE ANYMORE]
-  */
+  })(StandardTicker);
 
   SlidingTicker = (function(_super) {
 
@@ -194,12 +203,8 @@
       return SlidingTicker.__super__.update_container.apply(this, arguments).triggerHandler('updateDigit', [target, old, digit]);
     };
 
-    SlidingTicker.prototype.tick = function() {
-      return SlidingTicker.__super__.tick.apply(this, arguments);
-    };
-
     return SlidingTicker;
 
-  })(AbstractTicker);
+  })(StandardTicker);
 
 }).call(this);

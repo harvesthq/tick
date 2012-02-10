@@ -37,7 +37,7 @@ $.fn.ticker = (options) ->
 		onTick			
 		onStop			
 ###
-class AbstractTicker
+class StandardTicker
 
 	constructor: (@element, options={}) ->
 
@@ -141,8 +141,17 @@ class AbstractTicker
 
 
 
+class Ticker extends StandardTicker
 
-class Ticker extends AbstractTicker
+	update_container: (container, digit) ->
+		super
+
+
+
+
+
+
+class ScrollingTicker extends StandardTicker
 
 	build_container: () ->
 		$( '<span class="wheel"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span>' ).appendTo( @element )
@@ -151,22 +160,15 @@ class Ticker extends AbstractTicker
 		$( container ).animate({ top: digit * -96 }, @options.delay )
 
 
-	###
-		Just for testing... Useful later in combination with live data streamed from a server
-	###
-	tick: () ->
-		super
-		this.refresh_delay( 200 ) if @value == 162007012
+	# Just for testing... Useful later in combination with live data streamed from a server
+	tick: () -> super this.refresh_delay( 200 ) if @value == 162007012
 
 
 
 
 
 
-###
-	[NOT IN USE ANYMORE]
-###
-class SlidingTicker extends AbstractTicker
+class SlidingTicker extends StandardTicker
 
 	build_container: () ->
 
@@ -175,7 +177,6 @@ class SlidingTicker extends AbstractTicker
 			target.animate(
 					{ backgroundPositionY: digit * -65 },
 					{ duration: 500 })
-
 		)
 
 	update_container: (container, digit) ->
@@ -183,16 +184,6 @@ class SlidingTicker extends AbstractTicker
 		old		= target.html()
 
 		super.triggerHandler( 'updateDigit', [target, old, digit])
-
-
-	tick: () ->
-		super
-
-		# Just for testing... Maybe used for live data from the server
-#		this.refresh_delay( 100  ) if @value == 162007005
-#		this.refresh_delay( 2000 ) if @value == 162007030
-
-
 
 
 
