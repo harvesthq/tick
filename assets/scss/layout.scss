@@ -25,12 +25,52 @@
   font-weight: 600;
 }
 
+/* */
+$background: rgb(30,30,30);
+$foreground: rgb(255,255,255);
 
+$border_color: rgb(20,20,20);
+$box_shadow_color: rgb(0,0,0);
+$gradient: -webkit-linear-gradient(top, rgba(15,15,15,1) 0%,rgba(28,28,28,1) 20%);
+
+$old_gradient: -webkit-linear-gradient(top, rgba(50,50,50,1) 30%,rgba(20,20,20,1) 100%);
+$old_move_gradient: -webkit-linear-gradient(top, rgba(50,50,50,1) 0%,rgba(25,25,25,1) 100%);
+$new_gradient:  -webkit-linear-gradient(top, rgba(50,50,50,1) 0%,rgba(30,30,30,1) 100%);
+$new_move_gradient: -webkit-linear-gradient(top, rgba(50,50,50,1) 40%,rgba(20,20,20,1) 100%);
+
+$move_background: rgb(50,50,50);
+$seperator_color: rgb(180,180,180);
+$bar_color: rgb(25,25,25);
+
+$move_shadow_color: rgb(0,0,0);
+
+/* */
+
+$background: rgb(230,230,230);
+$foreground: rgb(30,30,30);
+
+$border_color: rgb(240,240,240);
+$box_shadow_color: rgb(150,150,150);
+$gradient: -webkit-linear-gradient(top, rgba(200,200,200,1) 0%,rgba(250,250,250,1) 20%);
+
+$old_gradient: -webkit-linear-gradient(top, rgba(255,255,255,1) 30%,rgba(200,200,200,1) 100%);
+$old_move_gradient: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(175,175,175,1) 100%);
+$new_gradient:  -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(200,200,200,1) 100%);
+$new_move_gradient: -webkit-linear-gradient(top, rgba(255,255,255,1) 40%,rgba(180,180,180,1) 100%);
+
+$move_background: rgb(200,200,200);
+$seperator_color: rgb(100,100,100);
+$bar_color: rgb(200,200,200);
+
+$move_shadow_color: rgb(80,80,80);
+/* */
 
 body {
-	width: 680px;
+	width: 800px;
 	margin: 0 auto;
 	font-family: "ff-dagny-web-pro-1","ff-dagny-web-pro-2", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	background-color: $background;
+	color: $foreground;
 }
 
 h1 {
@@ -46,7 +86,6 @@ p {
 }
 
 
-
 /*
 	Tick.flip
 */
@@ -54,54 +93,53 @@ p {
 	position: relative;
 	float: left;
 
-	padding: 0 10px;
-	height: 96px;
+	padding: 15px 10px;
+	border: 10px solid $border_color;
 	border-radius: 5px;
+	box-shadow: 0 0 6px $box_shadow_color;
+	background: $gradient;
 
-	color: rgb(255,255,255);
 	line-height: 1;
 
 	font: {
-		size: 4em;
-		weight: bold;
+		size: 6em;
 	}
 
 	text: {
 		align: center;
-		shadow: 0 0 3px rgb(50,50,50);
 	}
 }
 	.ticker.flip .seperator {
-		margin: 0 10px 0 5px;
+		margin: 0 5px;
+		font-size: 0.6em;
+		color: $seperator_color;
 	}
 	.ticker.flip .wrapper {
 		position: relative;
 		display: inline-block;
-		margin-right: 10px;
-		width: 50px;
-		color: #333;
-		overflow: hidden;
+		margin: 0 5px;
 		border-radius: 4px;
-		box-shadow: 0 0 5px #BBB;
 	}
 		.ticker.flip .wrapper:after {
 			position: absolute;
 			display: block;
 			top: 50%;
-			z-index: 10000;
+			z-index: 999;
 			display: block;
-			height: 2px;
+			height: 1px;
 			width: 100%;
 			content: '';
-			background-color: white;
-
+			background-color: $bar_color;
+		}
+		.ticker.flip .wrapper span {
+			padding: 0 5px;
 		}
 
 		.ticker.flip .old {
 			display: block;
 			border-radius: 4px;
-
-			background: rgb(200,200,200);
+			box-shadow: 0 0 5px $move_shadow_color;
+			background: $old_gradient;
 		}
 		.ticker.flip .new {
 			overflow: hidden;
@@ -110,32 +148,40 @@ p {
 			top: 0;
 
 			display: block;
-			width: 100%;
 			height: 50%;
 			border-radius: 4px 4px 0 0;
 
-			background: rgb(200,200,200);
+			background: $new_gradient;
 		}
 
 		.ticker.flip .old-move,
 		.ticker.flip .new-move {
 			overflow: hidden;
 			position: absolute;
+			display: none;
+			border-radius: 4px;
+			background: $move_background;
+		}
+
+		.ticker.flip .moving {
 			display: block;
-			width: 100%;
-			border-radius: 4px 4px 0 0;
-			background-color: rgb(200,200,200);
 		}
 
 		.ticker.flip .old-move {
 			z-index: 999;
 			bottom: 50%;
 			height: 50%;
+			background: $old_move_gradient;
+			box-shadow: 0 -5px 7px -5px $box_shadow_color;
+			-webkit-transform-origin: bottom left;
 		}
 		.ticker.flip .new-move {
 			z-index: 997;
-			height: 50%;
+			height: 100%;
 			top: 0;
+			background: $new_move_gradient;
+			box-shadow: 0 4px 6px -4px $box_shadow_color;
+			-webkit-transform-origin: top left;
 		}
 
 
@@ -185,11 +231,13 @@ p {
 		background: red;
 	}
 	.ticker.scrolling:before {
-		background: -moz-linear-gradient(top, rgba(40,40,40,1) 0%, rgba(40,40,40,1) 20%, rgba(40,40,40,0) 100%);background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(40,40,40,1)), color-stop(20%,rgba(40,40,40,1)), color-stop(100%,rgba(40,40,40,0)));background: -webkit-linear-gradient(top,  rgba(40,40,40,1) 0%,rgba(40,40,40,1) 20%,rgba(40,40,40,0) 100%);background: -o-linear-gradient(top,  rgba(40,40,40,1) 0%,rgba(40,40,40,1) 20%,rgba(40,40,40,0) 100%);background: -ms-linear-gradient(top,  rgba(40,40,40,1) 0%,rgba(40,40,40,1) 20%,rgba(40,40,40,0) 100%);background: linear-gradient(top,  rgba(40,40,40,1) 0%,rgba(40,40,40,1) 20%,rgba(40,40,40,0) 100%);filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#282828', endColorstr='#00282828',GradientType=0 );
+		background: -webkit-linear-gradient(top,  rgba(40,40,40,1) 0%,rgba(40,40,40,1) 20%,rgba(40,40,40,0) 100%);
+		background: linear-gradient(top,  rgba(40,40,40,1) 0%,rgba(40,40,40,1) 20%,rgba(40,40,40,0) 100%);
 	}
 	.ticker.scrolling:after {
 		bottom: 0;
-		background: -moz-linear-gradient(top, rgba(40,40,40,0) 0%, rgba(40,40,40,0) 1%, rgba(40,40,40,1) 80%, rgba(40,40,40,1) 100%);background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(40,40,40,0)), color-stop(1%,rgba(40,40,40,0)), color-stop(80%,rgba(40,40,40,1)), color-stop(100%,rgba(40,40,40,1)));background: -webkit-linear-gradient(top,  rgba(40,40,40,0) 0%,rgba(40,40,40,0) 1%,rgba(40,40,40,1) 80%,rgba(40,40,40,1) 100%);background: -o-linear-gradient(top,  rgba(40,40,40,0) 0%,rgba(40,40,40,0) 1%,rgba(40,40,40,1) 80%,rgba(40,40,40,1) 100%);background: -ms-linear-gradient(top,  rgba(40,40,40,0) 0%,rgba(40,40,40,0) 1%,rgba(40,40,40,1) 80%,rgba(40,40,40,1) 100%);background: linear-gradient(top,  rgba(40,40,40,0) 0%,rgba(40,40,40,0) 1%,rgba(40,40,40,1) 80%,rgba(40,40,40,1) 100%);filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00282828', endColorstr='#282828',GradientType=0 );
+		background: -webkit-linear-gradient(top,  rgba(40,40,40,0) 0%,rgba(40,40,40,0) 1%,rgba(40,40,40,1) 80%,rgba(40,40,40,1) 100%);
+		background: linear-gradient(top,  rgba(40,40,40,0) 0%,rgba(40,40,40,0) 1%,rgba(40,40,40,1) 80%,rgba(40,40,40,1) 100%);
 	}
 	/*
 		+++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -217,8 +265,10 @@ p {
 
 
 
+
+
 /*
-	Tick.slide
+	Tick.slide [DEPRECATED]
 */
 .ticker.sliding {
 	display: inline-block;

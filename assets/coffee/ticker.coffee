@@ -37,9 +37,11 @@ $.fn.ticker = (options) ->
 		onTick			
 		onStop			
 ###
-class StandardTicker
+class DefaultTicker
 
 	constructor: (@element, options={}) ->
+
+		@running = no
 
 		@options =
 			incremental: options.incremental or 1
@@ -102,13 +104,17 @@ class StandardTicker
 
 	# dynamically reset the delay during runtime
 	refresh_delay: (new_delay) ->
-		clearInterval( @periodic );
+		clearTimeout( @timer );
 		@options.delay = new_delay
+		this.set_timer()
 
-		# call the tick() method inside this object's context
-		@periodic = setInterval( () =>
+
+	set_timer: () ->
+
+		# setInterval can cause problems in inactive tabs (see: http://goo.gl/pToBS)
+		@timer = setTimeout( () =>
 			this.tick()
-		, @options.delay );
+		, @options.delay ) if @running
 
 
 	###
@@ -117,31 +123,30 @@ class StandardTicker
 	tick: () ->
 		@value += @options.incremental
 		this.render()
+		this.set_timer()
 
 
 	###
 		Controls for the ticker
 	###
 	start: () ->
-
-		@element.empty();
+		@element.empty()
 		this.render()
 
-		# call the tick() method inside this object's context
-		@periodic = setInterval( () =>
-			this.tick()
-		, @options.delay );
+		@running = yes
+		this.set_timer()
 
 
 	stop: () ->
-		clearInterval( @periodic );
+		clearTimeout( @timer );
+		@running = no
 
 
 
 
 
 
-class Ticker extends StandardTicker
+class Ticker extends DefaultTicker
 
 	build_container: (i) ->
 		val = String( @value ).split( '' )[ i ]
@@ -157,38 +162,47 @@ class Ticker extends StandardTicker
 
 	update_container: (container, digit) ->
 
-		if( $( container ).children( '.new' ).html() != digit )
+		nw = $( container ).children( '.new' )
 
-			move = $( container ).children( '.old-move' )
+		if( nw.html() != digit )
 
-			move.animate(
-				{ height: 0, 'background-color': 'rgb(100,100,100)' },
+			move = $( container ).children( '.old-move' ).css({ zIndex: 1099 })
+
+			move.stop(true, true).addClass( 'moving' ).animate(
+				{ zIndex: 999 },
 				{ duration: @options.delay / 4, step: (now, fx) =>
-#					console.log now
+					move.css( '-webkit-transform', "scaleY(#{(now-998)/100})" )
 
 				complete: =>
-
 					move.html( digit )
-						.removeAttr( 'style' )
+						.removeClass( 'moving' )
 
-					new_move = $( container ).children( '.new-move' ).html( digit )
+					nw.css( 'z-index', 1098 )
+					new_move = $( container ).children( '.new-move' ).html( digit ).css({ zIndex: 1097 })
 
-					new_move.animate(
-						{ height: '100%' },
-						{ duration: @options.delay / 4, complete: =>
-							new_move.removeAttr( 'style' )
+					new_move.stop(true, true).addClass( 'moving' ).animate(
+						{ zIndex: 997 },
+						{ duration: @options.delay / 4, step: (now, fx) =>
+							new_move.css( '-webkit-transform', "scaleY(#{1-((now-997)/100)})" )
+
+						complete: =>
+							new_move.html( digit )
+								.removeClass( 'moving' )
+
 							$( container ).children( '.old' ).html( digit )
-						})
+							nw.css( 'z-index', '' )
+
+
+						}, 'linear' )
 				})
 
-
-		$( container ).children( '.new' ).html( digit )
-
+		nw.html( digit )
 
 
 
 
-class ScrollingTicker extends StandardTicker
+
+class ScrollTicker extends DefaultTicker
 
 	build_container: () ->
 		$( '<span class="wheel"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span>' ).appendTo( @element )
@@ -197,15 +211,10 @@ class ScrollingTicker extends StandardTicker
 		$( container ).animate({ top: digit * -96 }, @options.delay )
 
 
-	# Just for testing... Useful later in combination with live data streamed from a server
-	tick: () -> super this.refresh_delay( 200 ) if @value == 162007012
 
 
 
-
-
-
-class SlidingTicker extends StandardTicker
+class SlidingTicker extends Ticker
 
 	build_container: () ->
 

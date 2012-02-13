@@ -1,5 +1,5 @@
 (function() {
-  var $, ScrollingTicker, SlidingTicker, StandardTicker, Ticker,
+  var $, DefaultTicker, ScrollTicker, SlidingTicker, Ticker,
     __hasProp = Object.prototype.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
 
@@ -42,11 +42,12 @@
   		onStop
   */
 
-  StandardTicker = (function() {
+  DefaultTicker = (function() {
 
-    function StandardTicker(element, options) {
+    function DefaultTicker(element, options) {
       this.element = element;
       if (options == null) options = {};
+      this.running = false;
       this.options = {
         incremental: options.incremental || 1,
         delay: options.delay || 1000,
@@ -58,7 +59,7 @@
       if (this.options.autostart) this.start();
     }
 
-    StandardTicker.prototype.render = function() {
+    DefaultTicker.prototype.render = function() {
       var container, containers, digits, i, _len, _ref, _results;
       digits = String(this.value).split('');
       containers = this.element.children(':not(.seperator)');
@@ -82,54 +83,60 @@
     		These methods will create all visible elements and manipulate the output
     */
 
-    StandardTicker.prototype.build_container = function(i) {
+    DefaultTicker.prototype.build_container = function(i) {
       return $('<span></span>').appendTo(this.element);
     };
 
-    StandardTicker.prototype.build_seperator = function(content) {
+    DefaultTicker.prototype.build_seperator = function(content) {
       return $("<span class='seperator'>" + content + "</span>").appendTo(this.element);
     };
 
-    StandardTicker.prototype.update_container = function(container, digit) {
+    DefaultTicker.prototype.update_container = function(container, digit) {
       return $(container).html(digit);
     };
 
-    StandardTicker.prototype.refresh_delay = function(new_delay) {
-      var _this = this;
-      clearInterval(this.periodic);
+    DefaultTicker.prototype.refresh_delay = function(new_delay) {
+      clearTimeout(this.timer);
       this.options.delay = new_delay;
-      return this.periodic = setInterval(function() {
-        return _this.tick();
-      }, this.options.delay);
+      return this.set_timer();
+    };
+
+    DefaultTicker.prototype.set_timer = function() {
+      var _this = this;
+      if (this.running) {
+        return this.timer = setTimeout(function() {
+          return _this.tick();
+        }, this.options.delay);
+      }
     };
 
     /*
     		Events
     */
 
-    StandardTicker.prototype.tick = function() {
+    DefaultTicker.prototype.tick = function() {
       this.value += this.options.incremental;
-      return this.render();
+      this.render();
+      return this.set_timer();
     };
 
     /*
     		Controls for the ticker
     */
 
-    StandardTicker.prototype.start = function() {
-      var _this = this;
+    DefaultTicker.prototype.start = function() {
       this.element.empty();
       this.render();
-      return this.periodic = setInterval(function() {
-        return _this.tick();
-      }, this.options.delay);
+      this.running = true;
+      return this.set_timer();
     };
 
-    StandardTicker.prototype.stop = function() {
-      return clearInterval(this.periodic);
+    DefaultTicker.prototype.stop = function() {
+      clearTimeout(this.timer);
+      return this.running = false;
     };
 
-    return StandardTicker;
+    return DefaultTicker;
 
   })();
 
@@ -148,66 +155,71 @@
     };
 
     Ticker.prototype.update_container = function(container, digit) {
-      var move,
+      var move, nw,
         _this = this;
-      if ($(container).children('.new').html() !== digit) {
-        move = $(container).children('.old-move');
-        move.animate({
-          height: 0,
-          'background-color': 'rgb(100,100,100)'
+      nw = $(container).children('.new');
+      if (nw.html() !== digit) {
+        move = $(container).children('.old-move').css({
+          zIndex: 1099
+        });
+        move.stop(true, true).addClass('moving').animate({
+          zIndex: 999
         }, {
           duration: this.options.delay / 4,
-          step: function(now, fx) {},
+          step: function(now, fx) {
+            return move.css('-webkit-transform', "scaleY(" + ((now - 998) / 100) + ")");
+          },
           complete: function() {
             var new_move;
-            move.html(digit).removeAttr('style');
-            new_move = $(container).children('.new-move').html(digit);
-            return new_move.animate({
-              height: '100%'
+            move.html(digit).removeClass('moving');
+            nw.css('z-index', 1098);
+            new_move = $(container).children('.new-move').html(digit).css({
+              zIndex: 1097
+            });
+            return new_move.stop(true, true).addClass('moving').animate({
+              zIndex: 997
             }, {
               duration: _this.options.delay / 4,
+              step: function(now, fx) {
+                return new_move.css('-webkit-transform', "scaleY(" + (1 - ((now - 997) / 100)) + ")");
+              },
               complete: function() {
-                new_move.removeAttr('style');
-                return $(container).children('.old').html(digit);
+                new_move.html(digit).removeClass('moving');
+                $(container).children('.old').html(digit);
+                return nw.css('z-index', '');
               }
-            });
+            }, 'linear');
           }
         });
       }
-      return $(container).children('.new').html(digit);
+      return nw.html(digit);
     };
 
     return Ticker;
 
-  })(StandardTicker);
+  })(DefaultTicker);
 
-  ScrollingTicker = (function(_super) {
+  ScrollTicker = (function(_super) {
 
-    __extends(ScrollingTicker, _super);
+    __extends(ScrollTicker, _super);
 
-    function ScrollingTicker() {
-      ScrollingTicker.__super__.constructor.apply(this, arguments);
+    function ScrollTicker() {
+      ScrollTicker.__super__.constructor.apply(this, arguments);
     }
 
-    ScrollingTicker.prototype.build_container = function() {
+    ScrollTicker.prototype.build_container = function() {
       return $('<span class="wheel"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span>').appendTo(this.element);
     };
 
-    ScrollingTicker.prototype.update_container = function(container, digit) {
+    ScrollTicker.prototype.update_container = function(container, digit) {
       return $(container).animate({
         top: digit * -96
       }, this.options.delay);
     };
 
-    ScrollingTicker.prototype.tick = function() {
-      if (this.value === 162007012) {
-        return ScrollingTicker.__super__.tick.call(this, this.refresh_delay(200));
-      }
-    };
+    return ScrollTicker;
 
-    return ScrollingTicker;
-
-  })(StandardTicker);
+  })(DefaultTicker);
 
   SlidingTicker = (function(_super) {
 
@@ -237,6 +249,6 @@
 
     return SlidingTicker;
 
-  })(StandardTicker);
+  })(Ticker);
 
 }).call(this);
