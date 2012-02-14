@@ -7,7 +7,17 @@ $ = jQuery
 # Create the plugin within the jQuery context
 $.fn.ticker = (options) ->
 
-	new Ticker( $( el ), options ) for el in this
+	for el in this
+		el = $( el )
+
+		if el.hasClass( 'tick-flip' )
+			new Tick_Flip( $( el ), options )
+		else if el.hasClass( 'tick-scroll' )
+			new Tick_Scroll( $( el ), options )
+		else
+			new Tick( el, options )
+
+
 
 
 
@@ -37,7 +47,7 @@ $.fn.ticker = (options) ->
 		onTick			
 		onStop			
 ###
-class DefaultTicker
+class Tick
 
 	constructor: (@element, options={}) ->
 
@@ -111,7 +121,7 @@ class DefaultTicker
 
 	set_timer: () ->
 
-		# setInterval can cause problems in inactive tabs (see: http://goo.gl/pToBS)
+		# setInterval() can cause problems in inactive tabs (see: http://goo.gl/pToBS)
 		@timer = setTimeout( () =>
 			this.tick()
 		, @options.delay ) if @running
@@ -144,9 +154,12 @@ class DefaultTicker
 
 
 
+###
+	CSS3 Transforms browser support:
+	https://developer.mozilla.org/en/CSS/transform#Browser_compatibility
+###
 
-
-class Ticker extends DefaultTicker
+class Tick_Flip extends Tick
 
 	build_container: (i) ->
 		val = String( @value ).split( '' )[ i ]
@@ -160,83 +173,74 @@ class Ticker extends DefaultTicker
 		.appendTo( @element )
 
 
-	update_container: (container, digit) ->
+	# provides the flip animation based on simple callbacks
+	flip: (target, digit, scale, onComplete) ->
 
-		nw = $( container ).children( '.new' )
+		target.css({ borderSpacing: 100 })
 
-		if( nw.html() != digit )
-
-			move = $( container ).children( '.old-move' ).css({ zIndex: 1099 })
-
-			move.stop(true, true).addClass( 'moving' ).animate(
-				{ zIndex: 999 },
-				{ duration: @options.delay / 4, step: (now, fx) =>
-					move.css( '-webkit-transform', "scaleY(#{(now-998)/100})" )
-
-				complete: =>
-					move.html( digit )
-						.removeClass( 'moving' )
-
-					nw.css( 'z-index', 1098 )
-					new_move = $( container ).children( '.new-move' ).html( digit ).css({ zIndex: 1097 })
-
-					new_move.stop(true, true).addClass( 'moving' ).animate(
-						{ zIndex: 997 },
-						{ duration: @options.delay / 4, step: (now, fx) =>
-							new_move.css( '-webkit-transform', "scaleY(#{1-((now-997)/100)})" )
-
-						complete: =>
-							new_move.html( digit )
-								.removeClass( 'moving' )
-
-							$( container ).children( '.old' ).html( digit )
-							nw.css( 'z-index', '' )
-
-
-						}, 'linear' )
+		target.stop(true, true).addClass( 'moving' ).animate(
+			{ borderSpacing: 0 },
+			{ duration: @options.delay / 4, step: (now, fx) =>
+				val = scale(now)
+				target.css({
+					'-webkit-transform': "scaleY(#{val})",
+					'-moz-transform': "scaleY(#{val})",
+					'-ms-transform': "scaleY(#{val})",
+					'-o-transform': "scaleY(#{val})",
+					'transform': "scaleY(#{val})"
 				})
 
-		nw.html( digit )
+			complete: () =>
+				target.html( digit )
+					  .css({
+							borderSpacing: '',
+							'-webkit-transform': '',
+							'-moz-transform': '',
+							'-ms-transform': '',
+							'-o-transform': '',
+							'transform': ''
+					  })
+					  .removeClass( 'moving' )
+
+				onComplete()
+			})
+
+
+	# calculate the step value for the respective half of the flip card
+	upper: (now) -> now / 100
+	lower: (now) => 1 - this.upper( now )
+
+
+	update_container: (container, digit) ->
+
+		# reference build_container() for elements/indices
+		parts = $( container ).children()
+
+		if( @running and parts.eq( 2 ).html() != digit )
+
+			this.flip( parts.eq( 1 ), digit, this.upper, () =>
+
+				this.flip( parts.eq( 3 ).html( digit ), digit, this.lower, () ->
+
+					parts.eq( 0 ).html( digit ) ))
+
+
+		parts.eq( 2 ).html( digit )
 
 
 
 
 
-class ScrollTicker extends DefaultTicker
+class Tick_Scroll extends Tick
 
-	build_container: () ->
+	build_container: (i) ->
 		$( '<span class="wheel"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span>' ).appendTo( @element )
 
 	update_container: (container, digit) ->
-		$( container ).animate({ top: digit * -96 }, @options.delay )
-
-
-
-
-
-class SlidingTicker extends Ticker
-
-	build_container: () ->
-
-		super.bind( 'updateDigit', (e, target, old, digit) =>
-
-			target.animate(
-					{ backgroundPositionY: digit * -65 },
-					{ duration: 500 })
-		)
-
-	update_container: (container, digit) ->
-		target	= $( container )
-		old		= target.html()
-
-		super.triggerHandler( 'updateDigit', [target, old, digit])
-
-
-
-
-
-
-
+		if( @running )
+			$( container ).animate({ top: digit * -96 }, @options.delay )
+		else
+			$( container ).css({ top: digit * -96 })
 
 
 

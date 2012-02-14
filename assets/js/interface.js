@@ -2,12 +2,11 @@
 $( document ).ready( function()
 {
 
-	$( '.ticker' ).ticker(
+	$( '.tick' ).ticker(
 	{
-		delay: 800,
+		delay: 900,
 		incremental: 1,
 		seperators: true,
 		autostart: true
 	});
-
 });
