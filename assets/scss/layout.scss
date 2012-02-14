@@ -1,15 +1,17 @@
+@import 'compass';
+
 
 $background: rgb(255,255,255);
 $foreground: rgb(30,30,30);
 
 $border_color: rgb(30,30,30);
 $box_shadow_color: rgb(150,150,150);
-$gradient: -webkit-linear-gradient(top, rgba(45,45,45,1) 0%,rgba(70,70,70,1) 30%);
+/* $gradient: -webkit-linear-gradient(top, rgba(45,45,45,1) 0%,rgba(70,70,70,1) 30%); */
 
-$old_gradient: -webkit-linear-gradient(top, rgba(255,255,255,1) 60%,rgba(190,190,190,1) 100%);
-$old_move_gradient: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(180,180,180,1) 100%);
-$new_gradient:  -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(190,190,190,1) 100%);
-$new_move_gradient: -webkit-linear-gradient(top, rgba(255,255,255,1) 40%,rgba(180,180,180,1) 100%);
+/* $old_gradient: -webkit-linear-gradient(top, rgba(255,255,255,1) 60%,rgba(190,190,190,1) 100%); */
+/* $old_move_gradient: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(180,180,180,1) 100%); */
+/* $new_gradient: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(190,190,190,1) 100%); */
+/* $new_move_gradient: -webkit-linear-gradient(top, rgba(255,255,255,1) 40%,rgba(180,180,180,1) 100%); */
 
 $move_background: rgb(255,255,255);
 $seperator_color: rgb(180,180,180);
@@ -18,102 +20,60 @@ $bar_height: 1px;
 
 $move_shadow_color: rgb(0,0,0);
 
-/* */
-
-
-
-/* Declare Font Families for Internet Explorer < 9 */
-@font-face {
-  font-family: "ff-dagny-web-pro-1";
-  src: url("../font/DagnyWebPro.eot");
-  font-style: normal;
-  font-weight: 400;
-}
-/* Declare Font Families for WOFF-capable browsers */
-@font-face {
-  font-family: "ff-dagny-web-pro-1";
-  src: url(../font/DagnyWebPro-Xlight.woff) format("woff");
-  font-style: normal;
-  font-weight: 200;
-}
-@font-face {
-  font-family: "ff-dagny-web-pro-1";
-  src: url(../font/DagnyWebPro.woff) format("woff");
-  font-style: normal;
-  font-weight: 400;
-}
-@font-face {
-  font-family: "ff-dagny-web-pro-1";
-  src: url(../font/DagnyWebPro-Bold.woff) format("woff");
-  font-style: normal;
-  font-weight: 600;
-}
-
-
-body {
-	width: 640px;
-	margin: 0 auto;
-	font-family: "ff-dagny-web-pro-1","ff-dagny-web-pro-2", "Helvetica Neue", Helvetica, Arial, sans-serif;
-	background-color: $background;
-	color: $foreground;
-}
-
-h1 {
-	margin: 1em 0 0;
-	font-size: 2em;
-	font-weight: bold;
-}
-
-p {
-	overflow: hidden;
-	clear: both;
-	margin: 1.5em 0;
-	line-height: 1.5;
-}
-
-em {
-	clear: left;
-	float: left;
-	display: inline-block;
-	padding: 2px 5px;
-	border-radius: 4px;
-}
-
 
 /*
 	Tick.tick-flip
 */
+.tick-flip + p {
+	clear: both;
+	text-align: right;
+}
 .tick-flip {
 	position: relative;
 	float: left;
 	padding: 7px;
-	border: 7px solid $border_color;
+	border: 1px solid $border_color;
 	border-radius: 5px;
+	margin-bottom: 0.125em;
 	box-shadow: 0 0 6px $box_shadow_color;
-	background: $gradient;
+
+	/* background: $gradient; */
+	background-color: rgb(45,45,45);
+	@include filter-gradient(#2d2d2d, #464646, vertical);
+	@include background-image(linear-gradient(top,  rgb(45,45,45) 0%,rgb(70,70,70) 30%));
+
+
+	/* Fallback styles */
+	color: $background;
+	width: 100%;
 
 	line-height: 1;
 
 	font: {
-		size: 4em;
+		size: 4.75em;
+		family: "ff-dagny-web-pro-1","ff-dagny-web-pro-2", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	}
 
 	text: {
 		align: center;
 	}
 }
-	.tick-flip .seperator {
+.tick-flip.tick-active {
+	width: auto;
+	color: $foreground;
+}
+	.tick-flip .tick-seperator {
 		margin: 0 2px;
 		font-size: 0.6em;
 		color: $seperator_color;
 	}
-	.tick-flip .wrapper {
+	.tick-flip .tick-wrapper {
 		position: relative;
 		display: inline-block;
 		margin: 0 2px;
 		border-radius: 4px;
 	}
-		.tick-flip .wrapper:after {
+		.tick-flip .tick-wrapper:after {
 			position: absolute;
 			display: block;
 			top: 50%;
@@ -125,17 +85,21 @@ em {
 			background-color: $bar_color;
 		}
 
-		.tick-flip .wrapper span {
+		.tick-flip .tick-wrapper span {
 			padding: 0 5px;
 		}
 
-		.tick-flip .old {
+		.tick-flip .tick-old {
 			display: block;
 			border-radius: 4px;
 			box-shadow: 0 0 5px $move_shadow_color;
-			background: $old_gradient;
+
+			/* background: $old_gradient; */
+			background-color: rgb(255,255,255);
+			@include filter-gradient(#ffffff, #bebebe, vertical);
+			@include background-image(linear-gradient(top,  rgb(255,255,255) 60%,rgb(190,190,190) 100%));
 		}
-		.tick-flip .new {
+		.tick-flip .tick-new {
 			overflow: hidden;
 			position: absolute;
 			z-index: 998;
@@ -145,11 +109,14 @@ em {
 			height: 50%;
 			border-radius: 4px 4px 0 0;
 
-			background: $new_gradient;
+			/* background: $new_gradient; */
+			background-color: rgb(255,255,255);
+			@include filter-gradient(#ffffff, #bebebe, vertical);
+			@include background-image(linear-gradient(top,  rgb(255,255,255) 0%,rgb(190,190,190) 100%));
 		}
 
-		.tick-flip .old-move,
-		.tick-flip .new-move {
+		.tick-flip .tick-old-move,
+		.tick-flip .tick-new-move {
 			overflow: hidden;
 			position: absolute;
 			display: none;
@@ -157,26 +124,46 @@ em {
 			background: $move_background;
 		}
 
-		.tick-flip .moving {
+		.tick-flip .tick-moving {
 			display: block;
 		}
 
-		.tick-flip .old-move {
+		.tick-flip .tick-old-move {
 			z-index: 999;
 			bottom: 50%;
 			height: 50%;
-			background: $old_move_gradient;
+
+			/* background: $old_move_gradient; */
+			background-color: rgb(255,255,255);
+			@include filter-gradient(#ffffff, #b4b4b4, vertical);
+			@include background-image(linear-gradient(top,  rgb(255,255,255) 0%,rgb(180,180,180) 100%));
+
 			box-shadow: 0 -4px 4px -3px $move_shadow_color;
+
+			transform-origin: bottom left;
 			-webkit-transform-origin: bottom left;
+			-moz-transform-origin: bottom left;
+			-ms-transform-origin: bottom left;
+			-o-transform-origin: bottom left;
 		}
-		.tick-flip .new-move {
+		.tick-flip .tick-new-move {
 			z-index: 997;
 			height: 100%;
 			top: 0;
 			border-radius: 50px 50px 4px 4px;
-			background: $new_move_gradient;
+
+			/* background: $new_move_gradient; */
+			background-color: rgb(255,255,255);
+			@include filter-gradient(#ffffff, #b4b4b4, vertical);
+			@include background-image(linear-gradient(top,  rgb(255,255,255) 40%,rgb(180,180,180) 100%));
+
 			box-shadow: 0 4px 4px -3px $move_shadow_color;
+
+			transform-origin: top left;
 			-webkit-transform-origin: top left;
+			-moz-transform-origin: top left;
+			-ms-transform-origin: top left;
+			-o-transform-origin: top left;
 		}
 
 
@@ -226,19 +213,19 @@ em {
 		background: red;
 	}
 	.tick-scroll:before {
-		background: -webkit-linear-gradient(top,  rgba(40,40,40,1) 0%,rgba(40,40,40,1) 20%,rgba(40,40,40,0) 100%);
-		background: linear-gradient(top,  rgba(40,40,40,1) 0%,rgba(40,40,40,1) 20%,rgba(40,40,40,0) 100%);
+		@include filter-gradient(rgb(40,40,40), rgba(40,40,40,0), vertical);
+		@include background-image(linear-gradient(top,  rgba(40,40,40,1) 0%,rgba(40,40,40,1) 20%,rgba(40,40,40,0) 100%));
 	}
 	.tick-scroll:after {
 		bottom: 0;
-		background: -webkit-linear-gradient(top,  rgba(40,40,40,0) 0%,rgba(40,40,40,0) 1%,rgba(40,40,40,1) 80%,rgba(40,40,40,1) 100%);
-		background: linear-gradient(top,  rgba(40,40,40,0) 0%,rgba(40,40,40,0) 1%,rgba(40,40,40,1) 80%,rgba(40,40,40,1) 100%);
+		@include filter-gradient(rgba(40,40,40,0), rgb(40,40,40), vertical);
+		@include background-image(linear-gradient(top,  rgba(40,40,40,0) 0%,rgba(40,40,40,1) 80%,rgba(40,40,40,1) 100%));
 	}
 	/*
 		+++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	*/
 
-	.tick-scroll .wheel {
+	.tick-scroll .tick-wheel {
 		position: relative;
 		display: inline-block;
 		width: 50px;
@@ -249,80 +236,11 @@ em {
 
 		background-color: rgb(80,80,80);
 	}
-		.tick-scroll .wheel span {
+		.tick-scroll .tick-wheel span {
 			display: block;
 			padding: 16px 0;
 		}
 
-	.tick-scroll .seperator {
+	.tick-scroll .tick-seperator {
 		font-weight: normal;
 	}
-
-
-
-
-
-/*
-	Tick.slide [DEPRECATED]
-*/
-.sliding {
-	display: inline-block;
-	padding: 10px;
-
-	color: rgb(255,255,255);
-	background-color: rgb(20,20,20);
-}
-	.sliding span {
-		display: inline-block;
-
-		width: 50px;
-		height: 65px;
-
-		border-right: 1px solid rgb(120,120,120);
-		border-left: 1px solid rgb(120,120,120);
-		margin-right: 2px;
-
-		font-size: 1.5em;
-		background: url('../img/sprite.gif');
-		text-indent: -999em;
-	}
-
-	.sliding .seperator {
-		width: 20px;
-		padding-right: 2px;
-		padding-left: 0;
-		border: 0 none;
-		background: url('../img/seperator.gif') no-repeat top center;
-	}
-/* */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

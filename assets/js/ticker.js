@@ -8,19 +8,21 @@
 
   $.fn.ticker = function(options) {
     var el, _i, _len, _results;
-    _results = [];
-    for (_i = 0, _len = this.length; _i < _len; _i++) {
-      el = this[_i];
-      el = $(el);
-      if (el.hasClass('tick-flip')) {
-        _results.push(new Tick_Flip($(el), options));
-      } else if (el.hasClass('tick-scroll')) {
-        _results.push(new Tick_Scroll($(el), options));
-      } else {
-        _results.push(new Tick(el, options));
+    if (typeof String.prototype.trim === 'function') {
+      _results = [];
+      for (_i = 0, _len = this.length; _i < _len; _i++) {
+        el = this[_i];
+        el = $(el);
+        if (el.hasClass('tick-flip')) {
+          _results.push(new Tick_Flip($(el), options));
+        } else if (el.hasClass('tick-scroll')) {
+          _results.push(new Tick_Scroll($(el), options));
+        } else {
+          _results.push(new Tick(el, options));
+        }
       }
+      return _results;
     }
-    return _results;
   };
 
   /*
@@ -64,13 +66,14 @@
       };
       this.value = Number(this.element.html().replace(/[^\d.]/g, ''));
       this.seperators = this.element.html().trim().split(/[\d]/i);
+      this.element.addClass('tick-active');
       if (this.options.autostart) this.start();
     }
 
     Tick.prototype.render = function() {
       var container, containers, digits, i, _len, _ref, _results;
       digits = String(this.value).split('');
-      containers = this.element.children(':not(.seperator)');
+      containers = this.element.children(':not(.tick-seperator)');
       if (digits.length !== containers.length) {
         for (i = 0, _ref = digits.length - containers.length; 0 <= _ref ? i < _ref : i > _ref; 0 <= _ref ? i++ : i--) {
           if (this.options.seperators && this.seperators[i]) {
@@ -96,7 +99,7 @@
     };
 
     Tick.prototype.build_seperator = function(content) {
-      return $("<span class='seperator'>" + content + "</span>").appendTo(this.element);
+      return $("<span class='tick-seperator'>" + content + "</span>").appendTo(this.element);
     };
 
     Tick.prototype.update_container = function(container, digit) {
@@ -165,7 +168,7 @@
     Tick_Flip.prototype.build_container = function(i) {
       var val;
       val = String(this.value).split('')[i];
-      return $("<span class='wrapper'>				<span class='old'>" + val + "</span>				<span class='old-move'>" + val + "</span>				<span class='new'></span>				<span class='new-move'>" + val + "</span>			</span>").appendTo(this.element);
+      return $("<span class='tick-wrapper'>				<span class='tick-old'>" + val + "</span>				<span class='tick-old-move'>" + val + "</span>				<span class='tick-new'></span>				<span class='tick-new-move'>" + val + "</span>			</span>").appendTo(this.element);
     };
 
     Tick_Flip.prototype.flip = function(target, digit, scale, onComplete) {
@@ -173,7 +176,7 @@
       target.css({
         borderSpacing: 100
       });
-      return target.stop(true, true).addClass('moving').animate({
+      return target.stop(true, true).addClass('tick-moving').animate({
         borderSpacing: 0
       }, {
         duration: this.options.delay / 4,
@@ -196,7 +199,7 @@
             '-ms-transform': '',
             '-o-transform': '',
             'transform': ''
-          }).removeClass('moving');
+          }).removeClass('tick-moving');
           return onComplete();
         }
       });
@@ -237,7 +240,7 @@
     }
 
     Tick_Scroll.prototype.build_container = function(i) {
-      return $('<span class="wheel"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span>').appendTo(this.element);
+      return $('<span class="tick-wheel"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span>').appendTo(this.element);
     };
 
     Tick_Scroll.prototype.update_container = function(container, digit) {

@@ -1,224 +1,75 @@
-/* */
-/* Declare Font Families for Internet Explorer < 9 */
-@font-face {
-  font-family: "ff-dagny-web-pro-1";
-  src: url("../font/DagnyWebPro.eot");
-  font-style: normal;
-  font-weight: 400; }
-
-/* Declare Font Families for WOFF-capable browsers */
-@font-face {
-  font-family: "ff-dagny-web-pro-1";
-  src: url(../font/DagnyWebPro-Xlight.woff) format("woff");
-  font-style: normal;
-  font-weight: 200; }
-
-@font-face {
-  font-family: "ff-dagny-web-pro-1";
-  src: url(../font/DagnyWebPro.woff) format("woff");
-  font-style: normal;
-  font-weight: 400; }
-
-@font-face {
-  font-family: "ff-dagny-web-pro-1";
-  src: url(../font/DagnyWebPro-Bold.woff) format("woff");
-  font-style: normal;
-  font-weight: 600; }
-
-body {
-  width: 640px;
-  margin: 0 auto;
-  font-family: "ff-dagny-web-pro-1","ff-dagny-web-pro-2", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background-color: white;
-  color: #1e1e1e; }
-
-h1 {
-  margin: 1em 0 0;
-  font-size: 2em;
-  font-weight: bold; }
-
-p {
-  overflow: hidden;
-  clear: both;
-  margin: 1.5em 0;
-  line-height: 1.5; }
-
-em {
-  clear: left;
-  float: left;
-  display: inline-block;
-  padding: 2px 5px;
-  border-radius: 4px; }
-
 /*
-	Tick.tick-flip
+Syntax error: File to import not found or unreadable: compass.
+              Load paths:
+                /Users/joschka/Sites/Tick/assets
+                /Users/joschka/Sites/Tick/assets/scss
+        on line 1 of scss/layout.scss
+
+1: @import 'compass';
+2: 
+3: 
+4: $background: rgb(255,255,255);
+5: $foreground: rgb(30,30,30);
+6: 
+
+Backtrace:
+scss/layout.scss:1
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/tree/import_node.rb:64:in `import'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/tree/import_node.rb:25:in `imported_file'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/tree/visitors/perform.rb:147:in `visit_import'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `map'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/tree/visitors/perform.rb:27:in `visit_children'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/tree/visitors/perform.rb:39:in `with_environment'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/tree/visitors/perform.rb:26:in `visit_children'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/tree/visitors/perform.rb:47:in `visit_root'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/tree/visitors/perform.rb:7:in `send'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/tree/visitors/perform.rb:7:in `visit'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/tree/root_node.rb:20:in `render'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/engine.rb:300:in `_render'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/engine.rb:247:in `render'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/plugin/compiler.rb:319:in `update_stylesheet'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/plugin/compiler.rb:181:in `update_stylesheets'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/plugin/compiler.rb:175:in `each'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/plugin/compiler.rb:175:in `update_stylesheets'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/plugin/compiler.rb:173:in `each'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/plugin/compiler.rb:173:in `update_stylesheets'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/plugin/compiler.rb:252:in `watch'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/fssm-0.2.7/lib/fssm/path.rb:73:in `call'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/fssm-0.2.7/lib/fssm/path.rb:73:in `run_callback'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/fssm-0.2.7/lib/fssm/path.rb:55:in `callback_action'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/fssm-0.2.7/lib/fssm/path.rb:35:in `update'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/fssm-0.2.7/lib/fssm/state/directory.rb:39:in `modified'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/fssm-0.2.7/lib/fssm/state/directory.rb:37:in `each'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/fssm-0.2.7/lib/fssm/state/directory.rb:37:in `modified'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/fssm-0.2.7/lib/fssm/state/directory.rb:18:in `refresh'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/fssm-0.2.7/lib/fssm/backends/polling.rb:17:in `run'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/fssm-0.2.7/lib/fssm/backends/polling.rb:17:in `each'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/fssm-0.2.7/lib/fssm/backends/polling.rb:17:in `run'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/fssm-0.2.7/lib/fssm/backends/polling.rb:15:in `loop'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/fssm-0.2.7/lib/fssm/backends/polling.rb:15:in `run'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/fssm-0.2.7/lib/fssm/monitor.rb:26:in `run'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/fssm-0.2.7/lib/fssm.rb:20:in `monitor'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/plugin/compiler.rb:245:in `watch'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/plugin.rb:111:in `send'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/plugin.rb:111:in `method_missing'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/exec.rb:421:in `watch_or_update'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/exec.rb:302:in `process_result'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/exec.rb:41:in `parse'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/../lib/sass/../sass/exec.rb:21:in `parse!'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/gems/sass-3.1.10/bin/sass:8
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/bin/sass:19:in `load'
+/Users/joschka/.rvm/gems/ree-1.8.7-2011.12/bin/sass:19
 */
-.tick-flip {
-  position: relative;
-  float: left;
-  padding: 7px;
-  border: 7px solid #1e1e1e;
-  border-radius: 5px;
-  box-shadow: 0 0 6px #969696;
-  background: -webkit-linear-gradient(top, #2d2d2d 0%, #464646 30%);
-  line-height: 1;
-  font-size: 4em;
-  text-align: center; }
-
-.tick-flip .seperator {
-  margin: 0 2px;
-  font-size: 0.6em;
-  color: #b4b4b4; }
-
-.tick-flip .wrapper {
-  position: relative;
-  display: inline-block;
-  margin: 0 2px;
-  border-radius: 4px; }
-
-.tick-flip .wrapper:after {
-  position: absolute;
-  display: block;
-  top: 50%;
-  z-index: 996;
-  display: block;
-  height: 1px;
-  width: 100%;
-  content: '';
-  background-color: #323232; }
-
-.tick-flip .wrapper span {
-  padding: 0 5px; }
-
-.tick-flip .old {
-  display: block;
-  border-radius: 4px;
-  box-shadow: 0 0 5px black;
-  background: -webkit-linear-gradient(top, white 60%, #bebebe 100%); }
-
-.tick-flip .new {
-  overflow: hidden;
-  position: absolute;
-  z-index: 998;
-  top: 0;
-  display: block;
-  height: 50%;
-  border-radius: 4px 4px 0 0;
-  background: -webkit-linear-gradient(top, white 0%, #bebebe 100%); }
-
-.tick-flip .old-move,
-.tick-flip .new-move {
-  overflow: hidden;
-  position: absolute;
-  display: none;
-  border-radius: 4px;
-  background: white; }
-
-.tick-flip .moving {
-  display: block; }
-
-.tick-flip .old-move {
-  z-index: 999;
-  bottom: 50%;
-  height: 50%;
-  background: -webkit-linear-gradient(top, white 0%, #b4b4b4 100%);
-  box-shadow: 0 -4px 4px -3px black;
-  -webkit-transform-origin: bottom left; }
-
-.tick-flip .new-move {
-  z-index: 997;
-  height: 100%;
-  top: 0;
-  border-radius: 50px 50px 4px 4px;
-  background: -webkit-linear-gradient(top, white 40%, #b4b4b4 100%);
-  box-shadow: 0 4px 4px -3px black;
-  -webkit-transform-origin: top left; }
-
-/*
-	Tick.tick-scroll
-*/
-.tick-scroll {
-  overflow: hidden;
-  position: relative;
-  float: left;
-  padding: 0 10px;
-  height: 96px;
-  border-radius: 5px;
-  color: white;
-  line-height: 1;
-  font-size: 4em;
-  font-weight: bold;
-  text-align: center;
-  text-shadow: 0 0 5px #323232;
-  background-color: #282828; }
-
-/*
-	Adding depth to the ticker by overlaying some gradients
-*/
-.tick-scroll:before,
-.tick-scroll:after {
-  position: absolute;
-  z-index: 999;
-  left: 0;
-  content: '';
-  width: 100%;
-  height: 30%;
-  border-radius: 5px;
-  background: red; }
-
-.tick-scroll:before {
-  background: -webkit-linear-gradient(top, #282828 0%, #282828 20%, rgba(40, 40, 40, 0) 100%);
-  background: linear-gradient(top, #282828 0%, #282828 20%, rgba(40, 40, 40, 0) 100%); }
-
-.tick-scroll:after {
-  bottom: 0;
-  background: -webkit-linear-gradient(top, rgba(40, 40, 40, 0) 0%, rgba(40, 40, 40, 0) 1%, #282828 80%, #282828 100%);
-  background: linear-gradient(top, rgba(40, 40, 40, 0) 0%, rgba(40, 40, 40, 0) 1%, #282828 80%, #282828 100%); }
-
-/*
-	+++++++++++++++++++++++++++++++++++++++++++++++++++++++
-*/
-.tick-scroll .wheel {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  border-right: 1px solid #969696;
-  border-left: 1px solid #969696;
-  margin: 0 2px;
-  background-color: #505050; }
-
-.tick-scroll .wheel span {
-  display: block;
-  padding: 16px 0; }
-
-.tick-scroll .seperator {
-  font-weight: normal; }
-
-/*
-	Tick.slide [DEPRECATED]
-*/
-.sliding {
-  display: inline-block;
-  padding: 10px;
-  color: white;
-  background-color: #141414; }
-
-.sliding span {
-  display: inline-block;
-  width: 50px;
-  height: 65px;
-  border-right: 1px solid #787878;
-  border-left: 1px solid #787878;
-  margin-right: 2px;
-  font-size: 1.5em;
-  background: url("../img/sprite.gif");
-  text-indent: -999em; }
-
-.sliding .seperator {
-  width: 20px;
-  padding-right: 2px;
-  padding-left: 0;
-  border: 0 none;
-  background: url("../img/seperator.gif") no-repeat top center; }
-
-/* */
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Syntax error: File to import not found or unreadable: compass.\A               Load paths:\A                 /Users/joschka/Sites/Tick/assets\A                 /Users/joschka/Sites/Tick/assets/scss\A         on line 1 of scss/layout.scss\A \A 1: @import 'compass';\A 2: \A 3: \A 4: $background: rgb(255,255,255);\A 5: $foreground: rgb(30,30,30);\A 6: "; }

@@ -46,3 +46,102 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+
+
+
+
+
+/* Declare Font Families for Internet Explorer < 9 */
+@font-face {
+  font-family: "ff-dagny-web-pro-1";
+  src: url("../font/DagnyWebPro.eot");
+  font-style: normal;
+  font-weight: 400;
+}
+/* Declare Font Families for WOFF-capable browsers */
+@font-face {
+  font-family: "ff-dagny-web-pro-1";
+  src: url(../font/DagnyWebPro-Xlight.woff) format("woff");
+  font-style: normal;
+  font-weight: 200;
+}
+@font-face {
+  font-family: "ff-dagny-web-pro-1";
+  src: url(../font/DagnyWebPro.woff) format("woff");
+  font-style: normal;
+  font-weight: 400;
+}
+@font-face {
+  font-family: "ff-dagny-web-pro-1";
+  src: url(../font/DagnyWebPro-Bold.woff) format("woff");
+  font-style: normal;
+  font-weight: 600;
+}
+
+
+body {
+	width: 640px;
+	margin: 0 auto;
+	font-family: "ff-dagny-web-pro-1","ff-dagny-web-pro-2", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	background-color: $background;
+	color: $foreground;
+}
+
+h1 {
+	margin: 1em 0 0;
+	font-size: 2em;
+	font-weight: bold;
+}
+
+p {
+	overflow: hidden;
+	clear: both;
+	margin: 1.5em 0;
+	line-height: 1.5;
+}
+
+em {
+	clear: left;
+	float: left;
+	display: inline-block;
+	padding: 2px 5px;
+	border-radius: 4px;
+}
+
+
+
+
+/*
+	Tick.slide [DEPRECATED]
+*/
+.sliding {
+	display: inline-block;
+	padding: 10px;
+
+	color: rgb(255,255,255);
+	background-color: rgb(20,20,20);
+}
+	.sliding span {
+		display: inline-block;
+
+		width: 50px;
+		height: 65px;
+
+		border-right: 1px solid rgb(120,120,120);
+		border-left: 1px solid rgb(120,120,120);
+		margin-right: 2px;
+
+		font-size: 1.5em;
+		background: url('../img/sprite.gif');
+		text-indent: -999em;
+	}
+
+	.sliding .seperator {
+		width: 20px;
+		padding-right: 2px;
+		padding-left: 0;
+		border: 0 none;
+		background: url('../img/seperator.gif') no-repeat top center;
+	}
+/* */

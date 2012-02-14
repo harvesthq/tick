@@ -7,15 +7,18 @@ $ = jQuery
 # Create the plugin within the jQuery context
 $.fn.ticker = (options) ->
 
-	for el in this
-		el = $( el )
+	# IE8 doesn't support String.trim()
+	if( typeof String.prototype.trim is 'function' )
 
-		if el.hasClass( 'tick-flip' )
-			new Tick_Flip( $( el ), options )
-		else if el.hasClass( 'tick-scroll' )
-			new Tick_Scroll( $( el ), options )
-		else
-			new Tick( el, options )
+		for el in this
+			el = $( el )
+
+			if el.hasClass( 'tick-flip' )
+				new Tick_Flip( $( el ), options )
+			else if el.hasClass( 'tick-scroll' )
+				new Tick_Scroll( $( el ), options )
+			else
+				new Tick( el, options )
 
 
 
@@ -67,7 +70,7 @@ class Tick
 		# retrieve all seperators (digits are stored as empty elements for reference)
 		@seperators = @element.html().trim().split( /[\d]/i )
 
-
+		@element.addClass( 'tick-active' )
 		this.start() if @options.autostart
 
 
@@ -75,7 +78,7 @@ class Tick
 	render: () ->
 
 		digits		= String( @value ).split( '' )
-		containers	= @element.children( ':not(.seperator)' )
+		containers	= @element.children( ':not(.tick-seperator)' )
 
 		# add new containers for each digit that doesnt exist (if they do, just update them)
 		if digits.length isnt containers.length
@@ -104,7 +107,7 @@ class Tick
 
 	# override to implement individual handling of seperators
 	build_seperator: (content) ->
-		$( "<span class='seperator'>#{content}</span>" ).appendTo( @element )
+		$( "<span class='tick-seperator'>#{content}</span>" ).appendTo( @element )
 
 
 	# override to add animation logic etc.
@@ -163,11 +166,11 @@ class Tick_Flip extends Tick
 
 	build_container: (i) ->
 		val = String( @value ).split( '' )[ i ]
-		$( "<span class='wrapper'>
-				<span class='old'>#{val}</span>
-				<span class='old-move'>#{val}</span>
-				<span class='new'></span>
-				<span class='new-move'>#{val}</span>
+		$( "<span class='tick-wrapper'>
+				<span class='tick-old'>#{val}</span>
+				<span class='tick-old-move'>#{val}</span>
+				<span class='tick-new'></span>
+				<span class='tick-new-move'>#{val}</span>
 			</span>"
 		)
 		.appendTo( @element )
@@ -178,7 +181,7 @@ class Tick_Flip extends Tick
 
 		target.css({ borderSpacing: 100 })
 
-		target.stop(true, true).addClass( 'moving' ).animate(
+		target.stop(true, true).addClass( 'tick-moving' ).animate(
 			{ borderSpacing: 0 },
 			{ duration: @options.delay / 4, step: (now, fx) =>
 				val = scale(now)
@@ -200,7 +203,7 @@ class Tick_Flip extends Tick
 							'-o-transform': '',
 							'transform': ''
 					  })
-					  .removeClass( 'moving' )
+					  .removeClass( 'tick-moving' )
 
 				onComplete()
 			})
@@ -234,14 +237,13 @@ class Tick_Flip extends Tick
 class Tick_Scroll extends Tick
 
 	build_container: (i) ->
-		$( '<span class="wheel"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span>' ).appendTo( @element )
+		$( '<span class="tick-wheel"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span>' ).appendTo( @element )
 
 	update_container: (container, digit) ->
 		if( @running )
 			$( container ).animate({ top: digit * -96 }, @options.delay )
 		else
 			$( container ).css({ top: digit * -96 })
-
 
 
 
