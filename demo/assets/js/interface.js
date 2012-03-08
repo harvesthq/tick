@@ -2,8 +2,8 @@ $( document ).ready( function()
 {
   $( '.tick' ).ticker(
   {
-    delay       : 10,
-    incremental : 100,
+    delay       : 700,
+    incremental : 1,
     seperators  : true,
     autostart   : true
   });

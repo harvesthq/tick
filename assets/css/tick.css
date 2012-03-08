@@ -1,18 +1,13 @@
-/* $gradient: -webkit-linear-gradient(top, rgba(45,45,45,1) 0%,rgba(70,70,70,1) 30%); */
-/* $old_gradient: -webkit-linear-gradient(top, rgba(255,255,255,1) 60%,rgba(190,190,190,1) 100%); */
-/* $old_move_gradient: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(180,180,180,1) 100%); */
-/* $new_gradient: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(190,190,190,1) 100%); */
-/* $new_move_gradient: -webkit-linear-gradient(top, rgba(255,255,255,1) 40%,rgba(180,180,180,1) 100%); */
 /*
   Tick.tick-flip
 */
-/* line 26, sass/tick.scss */
+/* line 20, ../scss/tick.scss */
 .tick-flip + p {
   clear: both;
   text-align: right;
 }
 
-/* line 30, sass/tick.scss */
+/* line 24, ../scss/tick.scss */
 .tick-flip {
   position: relative;
   float: left;
@@ -40,20 +35,20 @@
   text-align: center;
 }
 
-/* line 60, sass/tick.scss */
+/* line 54, ../scss/tick.scss */
 .tick-flip.tick-active {
   width: auto;
   color: #1e1e1e;
 }
 
-/* line 64, sass/tick.scss */
+/* line 58, ../scss/tick.scss */
 .tick-flip .tick-seperator {
   margin: 0 2px;
   font-size: 0.6em;
   color: #b4b4b4;
 }
 
-/* line 69, sass/tick.scss */
+/* line 63, ../scss/tick.scss */
 .tick-flip .tick-wrapper {
   position: relative;
   display: inline-block;
@@ -61,7 +56,7 @@
   border-radius: 4px;
 }
 
-/* line 75, sass/tick.scss */
+/* line 69, ../scss/tick.scss */
 .tick-flip .tick-wrapper:after {
   position: absolute;
   display: block;
@@ -74,12 +69,12 @@
   background-color: #323232;
 }
 
-/* line 87, sass/tick.scss */
+/* line 81, ../scss/tick.scss */
 .tick-flip .tick-wrapper span {
   padding: 0 5px;
 }
 
-/* line 91, sass/tick.scss */
+/* line 85, ../scss/tick.scss */
 .tick-flip .tick-old {
   display: block;
   border-radius: 4px;
@@ -96,7 +91,7 @@
   background-image: linear-gradient(top, #ffffff 60%, #bebebe 100%);
 }
 
-/* line 101, sass/tick.scss */
+/* line 95, ../scss/tick.scss */
 .tick-flip .tick-new {
   overflow: hidden;
   position: absolute;
@@ -117,7 +112,7 @@
   background-image: linear-gradient(top, #ffffff 0%, #bebebe 100%);
 }
 
-/* line 118, sass/tick.scss */
+/* line 112, ../scss/tick.scss */
 .tick-flip .tick-old-move,
 .tick-flip .tick-new-move {
   overflow: hidden;
@@ -127,12 +122,12 @@
   background: white;
 }
 
-/* line 126, sass/tick.scss */
+/* line 120, ../scss/tick.scss */
 .tick-flip .tick-moving {
   display: block;
 }
 
-/* line 130, sass/tick.scss */
+/* line 124, ../scss/tick.scss */
 .tick-flip .tick-old-move {
   z-index: 999;
   bottom: 50%;
@@ -155,7 +150,7 @@
   -o-transform-origin: bottom left;
 }
 
-/* line 148, sass/tick.scss */
+/* line 142, ../scss/tick.scss */
 .tick-flip .tick-new-move {
   z-index: 997;
   height: 100%;
@@ -182,7 +177,7 @@
 /*
   Tick.tick-scroll
 */
-/* line 174, sass/tick.scss */
+/* line 167, ../scss/tick.scss */
 .tick-scroll {
   overflow: hidden;
   position: relative;
@@ -202,7 +197,7 @@
 /*
   Adding depth to the ticker by overlaying some gradients
 */
-/* line 197, sass/tick.scss */
+/* line 190, ../scss/tick.scss */
 .tick-scroll:before,
 .tick-scroll:after {
   position: absolute;
@@ -214,7 +209,7 @@
   border-radius: 5px;
 }
 
-/* line 207, sass/tick.scss */
+/* line 200, ../scss/tick.scss */
 .tick-scroll:before {
   *zoom: 1;
   filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF282828', endColorstr='#00282828');
@@ -226,7 +221,7 @@
   background-image: linear-gradient(top, #282828 0%, #282828 20%, rgba(40, 40, 40, 0) 100%);
 }
 
-/* line 211, sass/tick.scss */
+/* line 204, ../scss/tick.scss */
 .tick-scroll:after {
   bottom: 0;
   *zoom: 1;
@@ -242,7 +237,7 @@
 /*
   +++++++++++++++++++++++++++++++++++++++++++++++++++++++
 */
-/* line 220, sass/tick.scss */
+/* line 213, ../scss/tick.scss */
 .tick-scroll .tick-wheel {
   position: relative;
   display: inline-block;
@@ -253,13 +248,46 @@
   background-color: white;
 }
 
-/* line 231, sass/tick.scss */
+/* line 224, ../scss/tick.scss */
 .tick-scroll .tick-wheel span {
   display: block;
   padding: 16px 0;
 }
 
-/* line 236, sass/tick.scss */
+/* line 229, ../scss/tick.scss */
 .tick-scroll .tick-seperator {
   font-weight: normal;
+}
+
+/*
+  Tick.tick-slide
+*/
+/* line 238, ../scss/tick.scss */
+.tick-slide {
+  display: inline-block;
+  padding: 10px;
+  color: white;
+  background-color: #141414;
+}
+
+/* line 245, ../scss/tick.scss */
+.tick-slide span {
+  display: inline-block;
+  width: 50px;
+  height: 65px;
+  border-right: 1px solid #787878;
+  border-left: 1px solid #787878;
+  margin-right: 2px;
+  font-size: 1.5em;
+  background: url("../img/sprite.gif");
+  text-indent: -999em;
+}
+
+/* line 260, ../scss/tick.scss */
+.tick-slide .seperator {
+  width: 20px;
+  padding-right: 2px;
+  padding-left: 0;
+  border: 0 none;
+  background: url("../img/seperator.gif") no-repeat top center;
 }
