@@ -26,30 +26,30 @@
   };
 
   /*
-  	The acutal Ticker logic. The stored value is
-  	represented by a span/element per digit (and seperator).
+    The acutal Ticker logic. The stored value is
+    represented by a span/element per digit (and seperator).
   
-  	Attributes
+    Attributes
   
-  		options			object		all runtime options
-  		element			object		the element that is used for this ticker
-  		value			int			whatever value you pass in to the ticker
-  		seperators		array		a list of the all seperators that were found inbetween all digits
-  									all digits are represented by an empty element
+      options     object    all runtime options
+      element     object    the element that is used for this ticker
+      value     int     whatever value you pass in to the ticker
+      seperators    array   a list of the all seperators that were found inbetween all digits
+                    all digits are represented by an empty element
   
-  	Options
+    Options
   
-  		incremental		int			the amount by which the target value is to be increased
-  		delay (ms)		int			the time after which the target value is being increased
-  		seperators		boolean		if true, all arbitrary characters inbetween digits are wrapped in seperated elements
-  									if false, these characters are stripped out
-  		autostart		boolean		whether or not to start the ticker when instantiated
+      incremental   int     the amount by which the target value is to be increased
+      delay (ms)    int     the time after which the target value is being increased
+      seperators    boolean   if true, all arbitrary characters inbetween digits are wrapped in seperated elements
+                    if false, these characters are stripped out
+      autostart   boolean   whether or not to start the ticker when instantiated
   
-  	Events
+    Events
   
-  		onStart			
-  		onTick			
-  		onStop
+      onStart     
+      onTick      
+      onStop
   */
 
   Tick = (function() {
@@ -91,7 +91,7 @@
     };
 
     /*
-    		These methods will create all visible elements and manipulate the output
+        These methods will create all visible elements and manipulate the output
     */
 
     Tick.prototype.build_container = function(i) {
@@ -122,7 +122,7 @@
     };
 
     /*
-    		Events
+        Events
     */
 
     Tick.prototype.tick = function() {
@@ -132,7 +132,7 @@
     };
 
     /*
-    		Controls for the ticker
+        Controls for the ticker
     */
 
     Tick.prototype.start = function() {
@@ -152,8 +152,8 @@
   })();
 
   /*
-  	CSS3 Transforms browser support:
-  	https://developer.mozilla.org/en/CSS/transform#Browser_compatibility
+    CSS3 Transforms browser support:
+    https://developer.mozilla.org/en/CSS/transform#Browser_compatibility
   */
 
   Tick_Flip = (function(_super) {
@@ -168,10 +168,10 @@
     Tick_Flip.prototype.build_container = function(i) {
       var val;
       val = String(this.value).split('')[i];
-      return $("<span class='tick-wrapper'>				<span class='tick-old'>" + val + "</span>				<span class='tick-old-move'>" + val + "</span>				<span class='tick-new'></span>				<span class='tick-new-move'>" + val + "</span>			</span>").appendTo(this.element);
+      return $("<span class='tick-wrapper'>        <span class='tick-old'>" + val + "</span>        <span class='tick-old-move'>" + val + "</span>        <span class='tick-new'></span>        <span class='tick-new-move'>" + val + "</span>      </span>").appendTo(this.element);
     };
 
-    Tick_Flip.prototype.flip = function(target, digit, scale, onComplete) {
+    Tick_Flip.prototype.flip = function(target, digit, scale, duration, onComplete) {
       var _this = this;
       target.css({
         borderSpacing: 100
@@ -179,7 +179,8 @@
       return target.stop(true, true).addClass('tick-moving').animate({
         borderSpacing: 0
       }, {
-        duration: this.options.delay / 4,
+        duration: duration,
+        easing: 'easeInCubic',
         step: function(now, fx) {
           var val;
           val = scale(now);
@@ -214,14 +215,12 @@
     };
 
     Tick_Flip.prototype.update_container = function(container, digit) {
-      var parts,
-        _this = this;
+      var parts;
       parts = $(container).children();
       if (this.running && parts.eq(2).html() !== digit) {
-        this.flip(parts.eq(1), digit, this.upper, function() {
-          return _this.flip(parts.eq(3).html(digit), digit, _this.lower, function() {
-            return parts.eq(0).html(digit);
-          });
+        this.flip(parts.eq(1), digit, this.upper, this.options.delay / 4, function() {});
+        this.flip(parts.eq(3).html(digit), digit, this.lower, this.options.delay / 3, function() {
+          return parts.eq(0).html(digit);
         });
       }
       return parts.eq(2).html(digit);
