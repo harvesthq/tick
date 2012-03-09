@@ -67,6 +67,10 @@ ul.credits li { margin-bottom: .25em; }
 strong { font-weight: bold; }
 
 
+
+.tick-promo.tick-flip {
+  margin: 0.25em 0 0.5em 0;
+}
 .options {
   text-align: left;
 }

@@ -4,7 +4,6 @@
 /* line 20, ../scss/tick.scss */
 .tick-flip + p {
   clear: both;
-  text-align: right;
 }
 
 /* line 24, ../scss/tick.scss */
