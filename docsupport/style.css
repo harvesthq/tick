@@ -71,6 +71,9 @@ strong { font-weight: bold; }
 .tick-promo.tick-flip {
   margin: 0.25em 0 0.5em 0;
 }
+.example-all {
+  margin-top: 3em;
+}
 .tick-promo .tick-separator {
   color: #999;
   font-weight: normal;
