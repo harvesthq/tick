@@ -65,3 +65,22 @@ a:hover { text-decoration: underline; }
 ul.credits li { margin-bottom: .25em; }
 
 strong { font-weight: bold; }
+
+
+.options {
+  text-align: left;
+}
+  .options th {
+    font-weight: bold;
+  }
+  .options th, td {
+    padding: 0.5em 2em 0.5em 0;
+  }
+
+
+
+
+
+
+
+

@@ -37,73 +37,221 @@
       </header>
       <div id="content">
         <div id="container">
-          <h2 class="intro">Tick is a JavaScript plugin that makes visualizing dynamically changing numbers a breeze.</h2>
+          <h2 class="intro">Tick is a modular JavaScript plugin that makes visualizing dynamically changing numbers a breeze.</h2>
+
+          <p>
+            Take a look at the examples below to see the basic Tick plugin in action. Examples are all based on a simple and semantic element:
+            <code>
+              &lt;p class="tick"&gt;123,456,789&lt;/p&gt;
+            </code>
+          </p>
+
           <a href="https://github.com/harvesthq/tick/">Project page on GitHub</a>
 
+          <h2>Default</h2>
           <div class="side-by-side clearfix">
             <div>
-              <h2>Basic</h2>
               <p class="tick example-simple">123,456,789</p>
-
-              <code>
-                $( '.example-simple' ).ticker();
-              </code>
             </div>
-
             <div>
-              <h2>Seperators</h2>
-              <p class="tick example-simple-seperators">123,456,789</p>
-
               <code>
-                $( '.example-simple' ).ticker({
-                  seperators: true
-                });
+                <pre>
+$( '.tick' ).ticker();
+                </pre>
               </code>
             </div>
           </div>
 
 
+          <h2>Separators</h2>
           <div class="side-by-side clearfix">
             <div>
-              <h2>Speed</h2>
-              <p class="tick example-speed">123,456,789</p>
-
-              <code>
-                $( '.example-simple' ).ticker();
-              </code>
+              <p class="tick example-simple-seperators">123,456,789</p>
             </div>
 
             <div>
-              <h2>Seperators</h2>
-              <p class="tick example-simple-increment">123,456,789</p>
-
               <code>
-                $( '.example-simple' ).ticker({
-                  seperators: true
-                });
+                <pre>
+$( '.tick' ).ticker(
+{
+  separators: true
+});
+                </pre>
               </code>
             </div>
           </div>
 
-    delay       : 700,
-    incremental : 1,
-    seperators  : true,
-    autostart   : true
+
+          <h2>Speed</h2>
+          <div class="side-by-side clearfix">
+            <div>
+              <p class="tick example-speed">123,456,789</p>
+            </div>
+
+            <div>
+              <code>
+                <pre>
+$( '.tick' ).ticker(
+{
+  delay: 200
+});
+                </pre>
+              </code>
+            </div>
+          </div>
+
+
+          <h2>Increment</h2>
+          <div class="side-by-side clearfix">
+            <div>
+              <p class="tick example-incremental">123,456,789</p>
+            </div>
+
+            <div>
+              <code>
+                <pre>
+$( '.tick' ).ticker(
+{
+  incremental: 3
+});
+                </pre>
+              </code>
+            </div>
+          </div>
+
+
+          <h2>Autostart</h2>
+          <div class="side-by-side clearfix">
+            <div>
+              <p class="tick example-autostart">123,456,789</p>
+            </div>
+
+            <div>
+              <code>
+                <pre>
+$( '.tick' ).ticker(
+{
+  autostart: false
+});
+                </pre>
+              </code>
+            </div>
+          </div>
+
+
+
+          <h2>Summary of all available options</h2>
+          <table class="options">
+            <thead>
+              <tr>
+                <th>Option</th>
+                <th>Type</th>
+                <th>Default</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>incremental</code></td>
+                <td>int</td>
+                <td>1</td>
+                <td>the amount by which the target value is to be increased</td>
+              </tr><tr>
+                <td><code>delay</code></td>
+                <td>int</td>
+                <td>1000</td>
+                <td>delay in milliseconds after which the target is increased</td>
+              </tr></tr>
+                <td><code>separators</code></td>
+                <td>boolean</td>
+                <td>false</td>
+                <td>whether or not to strip out all non-digit characters</td>
+              </tr><tr>
+                <td><code>autostart</code></code>
+                <td>boolean</td>
+                <td>true</td>
+                <td>whether or not to start the ticker immediately</td>
+              </tr>
+            </tbody>
+          </table>
+
 
           <h2>Why use Tick?</h2>
           <ul>
             <li>
-              <h3>Some good points</h3>
-              <p>It works.</p>
+              <h3>Easy to integrate</h3>
+              <p>Just include the Tick.js script on your page and call the <code>.ticker()</code> method on any number element to instantly make it a new dynamic ticker.</p>
+            </li>
+
+            <li>
+              <h3>Progressively enhanced, semantic code</h3>
+              <p>In order for Tick to run on your page you don't need to modify any part of your markup or include non-semantic code whatsoever.</p>
+            </li>
+
+            <li>
+              <h3>Fully customizable</h3>
+              <p>The basic Tick class and functionality can easily be extended and overriden. All (<abbr title="Cascading Style Sheets">CSS</abbr>) is completely seperated from the plugin logic to allow for easy customization.</p>
             </li>
           </ul>
+
+
+          <h2>Extensions</h2>
+
+          <p>
+            Tick also ships with several extensions for different types of data visualizations. In order to use them just add the appropriate class to the target element. See below for examples.
+          </p>
+
+          <div class="side-by-side clearfix">
+            <h2>Tick.Slide</h2>
+            <code>
+              <pre>
+&lt;p class="tick tick-scroll"&gt;123,456,789&lt;/p&gt;
+              </pre>
+            </code>
+
+            <p class="tick tick-scroll example-scroll">123,456,789</p>
+          </div>
+
+          <div class="side-by-side clearfix">
+            <h2>Tick.Flip</h2>
+            <code>
+              <pre>
+&lt;p class="tick tick-flip"&gt;123,456,789&lt;/p&gt;
+              </pre>
+            </code>
+
+            <p class="tick tick-flip example-flip">123,456,789</p>
+          </div>
+
 
           <h2>Setup</h2>
           <p>Using Tick is easy as can be.</p>
           <ol>
             <li><a href="https://github.com/harvesthq/tick">Download the plugin</a> and copy the related files to your app.</li>
+            <li>
+              Include the plugin in the bottom of your page:
+              <br />
+              <code>&lt;script src="path/to/tick.js" type="text/javascript"&gt;&lt;/script&gt;</code>
+            </li>
+            <li>Add the <code>.tick</code> class to any number of elements on the page.</li>
+            <li>Optional: Add one of the extension classes those elements (see above)</li>
           </ol>
-            
+
+
+          <h2>FAQs</h2>
+          <ul>
+            <li>
+              <h3>Something doesn't work. Can you fix it?</h3>
+              <p>Yes! Please report all issues using the GitHub issue tracking tool. Please include browser and OS used when you noticed the issued. The more information provided, the easier it is to fix a problem.</p>
+            </li>
+
+            <li>
+              <h3>What browsers are supported?</h3>
+              <p>All modern browsers are supported (Firefox, Chrome, Safari and IE). Support for Extensions vary.</p>
+            </li>
+          </ul>
+
+
           <h2>Credits</h2>
           <ul class="credits">
             <li>Built by <a href="http://www.getharvest.com/">Harvest</a>. Want to work on projects like this? <a href="http://www.getharvest.com/careers">We're hiring</a>!</li>
@@ -113,16 +261,23 @@
           <footer>
             &copy; 2011 <a href="http://www.getharvest.com/">Harvest</a> - Tick is licensed under the <a href="http://en.wikipedia.org/wiki/MIT_License">MIT license</a>.
           </footer>
-          
         </div>
+
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
         <script src="tick/js/tick.js" type="text/javascript"></script>
 
         <script type="text/javascript">
           $( document ).ready( function()
           {
-            $( '.example-simple' ).ticker({ autostart: true });
-//            $( '.example-simple-seperators' ).ticker({ seperators: true });
+            $( '.example-simple' ).ticker();
+            $( '.example-simple-seperators' ).ticker({ separators: true });
+            $( '.example-speed' ).ticker({ delay: 200 });
+            $( '.example-incremental' ).ticker({ incremental: 3 });
+            $( '.example-autostart' ).ticker({ autostart: false });
+
+            $( '.example-scroll' ).ticker();
+            $( '.example-flip' ).ticker();
           });
         </script>
 

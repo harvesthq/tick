@@ -1,3 +1,7 @@
+// used for bounce animation
+// http://gsgd.co.uk/sandbox/jquery/easing/
+jQuery.easing.jswing=jQuery.easing.swing;jQuery.extend(jQuery.easing,{def:"easeOutQuad",swing:function(e,f,a,h,g){return jQuery.easing[jQuery.easing.def](e,f,a,h,g)},easeInQuad:function(e,f,a,h,g){return h*(f/=g)*f+a},easeOutQuad:function(e,f,a,h,g){return -h*(f/=g)*(f-2)+a},easeInOutQuad:function(e,f,a,h,g){if((f/=g/2)<1){return h/2*f*f+a}return -h/2*((--f)*(f-2)-1)+a},easeInCubic:function(e,f,a,h,g){return h*(f/=g)*f*f+a},easeOutCubic:function(e,f,a,h,g){return h*((f=f/g-1)*f*f+1)+a},easeInOutCubic:function(e,f,a,h,g){if((f/=g/2)<1){return h/2*f*f*f+a}return h/2*((f-=2)*f*f+2)+a},easeInQuart:function(e,f,a,h,g){return h*(f/=g)*f*f*f+a},easeOutQuart:function(e,f,a,h,g){return -h*((f=f/g-1)*f*f*f-1)+a},easeInOutQuart:function(e,f,a,h,g){if((f/=g/2)<1){return h/2*f*f*f*f+a}return -h/2*((f-=2)*f*f*f-2)+a},easeInQuint:function(e,f,a,h,g){return h*(f/=g)*f*f*f*f+a},easeOutQuint:function(e,f,a,h,g){return h*((f=f/g-1)*f*f*f*f+1)+a},easeInOutQuint:function(e,f,a,h,g){if((f/=g/2)<1){return h/2*f*f*f*f*f+a}return h/2*((f-=2)*f*f*f*f+2)+a},easeInSine:function(e,f,a,h,g){return -h*Math.cos(f/g*(Math.PI/2))+h+a},easeOutSine:function(e,f,a,h,g){return h*Math.sin(f/g*(Math.PI/2))+a},easeInOutSine:function(e,f,a,h,g){return -h/2*(Math.cos(Math.PI*f/g)-1)+a},easeInExpo:function(e,f,a,h,g){return(f==0)?a:h*Math.pow(2,10*(f/g-1))+a},easeOutExpo:function(e,f,a,h,g){return(f==g)?a+h:h*(-Math.pow(2,-10*f/g)+1)+a},easeInOutExpo:function(e,f,a,h,g){if(f==0){return a}if(f==g){return a+h}if((f/=g/2)<1){return h/2*Math.pow(2,10*(f-1))+a}return h/2*(-Math.pow(2,-10*--f)+2)+a},easeInCirc:function(e,f,a,h,g){return -h*(Math.sqrt(1-(f/=g)*f)-1)+a},easeOutCirc:function(e,f,a,h,g){return h*Math.sqrt(1-(f=f/g-1)*f)+a},easeInOutCirc:function(e,f,a,h,g){if((f/=g/2)<1){return -h/2*(Math.sqrt(1-f*f)-1)+a}return h/2*(Math.sqrt(1-(f-=2)*f)+1)+a},easeInElastic:function(f,h,e,l,k){var i=1.70158;var j=0;var g=l;if(h==0){return e}if((h/=k)==1){return e+l}if(!j){j=k*0.3}if(g<Math.abs(l)){g=l;var i=j/4}else{var i=j/(2*Math.PI)*Math.asin(l/g)}return -(g*Math.pow(2,10*(h-=1))*Math.sin((h*k-i)*(2*Math.PI)/j))+e},easeOutElastic:function(f,h,e,l,k){var i=1.70158;var j=0;var g=l;if(h==0){return e}if((h/=k)==1){return e+l}if(!j){j=k*0.3}if(g<Math.abs(l)){g=l;var i=j/4}else{var i=j/(2*Math.PI)*Math.asin(l/g)}return g*Math.pow(2,-10*h)*Math.sin((h*k-i)*(2*Math.PI)/j)+l+e},easeInOutElastic:function(f,h,e,l,k){var i=1.70158;var j=0;var g=l;if(h==0){return e}if((h/=k/2)==2){return e+l}if(!j){j=k*(0.3*1.5)}if(g<Math.abs(l)){g=l;var i=j/4}else{var i=j/(2*Math.PI)*Math.asin(l/g)}if(h<1){return -0.5*(g*Math.pow(2,10*(h-=1))*Math.sin((h*k-i)*(2*Math.PI)/j))+e}return g*Math.pow(2,-10*(h-=1))*Math.sin((h*k-i)*(2*Math.PI)/j)*0.5+l+e},easeInBack:function(e,f,a,i,h,g){if(g==undefined){g=1.70158}return i*(f/=h)*f*((g+1)*f-g)+a},easeOutBack:function(e,f,a,i,h,g){if(g==undefined){g=1.70158}return i*((f=f/h-1)*f*((g+1)*f+g)+1)+a},easeInOutBack:function(e,f,a,i,h,g){if(g==undefined){g=1.70158}if((f/=h/2)<1){return i/2*(f*f*(((g*=(1.525))+1)*f-g))+a}return i/2*((f-=2)*f*(((g*=(1.525))+1)*f+g)+2)+a},easeInBounce:function(e,f,a,h,g){return h-jQuery.easing.easeOutBounce(e,g-f,0,h,g)+a},easeOutBounce:function(e,f,a,h,g){if((f/=g)<(1/2.75)){return h*(7.5625*f*f)+a}else{if(f<(2/2.75)){return h*(7.5625*(f-=(1.5/2.75))*f+0.75)+a}else{if(f<(2.5/2.75)){return h*(7.5625*(f-=(2.25/2.75))*f+0.9375)+a}else{return h*(7.5625*(f-=(2.625/2.75))*f+0.984375)+a}}}},easeInOutBounce:function(e,f,a,h,g){if(f<g/2){return jQuery.easing.easeInBounce(e,f*2,0,h,g)*0.5+a}return jQuery.easing.easeOutBounce(e,f*2-g,0,h,g)*0.5+h*0.5+a}});
+
 (function() {
   var $, Tick, Tick_Flip, Tick_Scroll,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -27,21 +31,21 @@
 
   /*
     The acutal Ticker logic. The stored value is
-    represented by a span/element per digit (and seperator).
+    represented by a span/element per digit (and separator).
   
     Attributes
   
       options     object    all runtime options
       element     object    the element that is used for this ticker
       value     int     whatever value you pass in to the ticker
-      seperators    array   a list of the all seperators that were found inbetween all digits
+      separators    array   a list of the all separators that were found inbetween all digits
                     all digits are represented by an empty element
-  
+
     Options
-  
+
       incremental   int     the amount by which the target value is to be increased
       delay (ms)    int     the time after which the target value is being increased
-      seperators    boolean   if true, all arbitrary characters inbetween digits are wrapped in seperated elements
+      separators    boolean   if true, all arbitrary characters inbetween digits are wrapped in seperated elements
                     if false, these characters are stripped out
       autostart   boolean   whether or not to start the ticker when instantiated
   
@@ -61,11 +65,11 @@
       this.options = {
         incremental: options.incremental || 1,
         delay: options.delay || 1000,
-        seperators: options.seperators ? true : false,
-        autostart: options.autostart ? true : false
+        separators: options.separators != null ? options.separators : false,
+        autostart: options.autostart != null ? options.autostart : true
       };
       this.value = Number(this.element.html().replace(/[^\d.]/g, ''));
-      this.seperators = this.element.html().trim().split(/[\d]/i);
+      this.separators = this.element.html().trim().split(/[\d]/i);
       this.element.addClass('tick-active');
       if (this.options.autostart) this.start();
     }
@@ -73,11 +77,11 @@
     Tick.prototype.render = function() {
       var container, containers, digits, i, _len, _ref, _results;
       digits = String(this.value).split('');
-      containers = this.element.children(':not(.tick-seperator)');
+      containers = this.element.children(':not(.tick-separator)');
       if (digits.length !== containers.length) {
         for (i = 0, _ref = digits.length - containers.length; 0 <= _ref ? i < _ref : i > _ref; 0 <= _ref ? i++ : i--) {
-          if (this.options.seperators && this.seperators[i]) {
-            this.build_seperator(this.seperators[i]);
+          if (this.options.separators && this.separators[i]) {
+            this.build_separator(this.separators[i]);
           }
           containers.push(this.build_container(i));
         }
@@ -98,8 +102,8 @@
       return $('<span></span>').appendTo(this.element);
     };
 
-    Tick.prototype.build_seperator = function(content) {
-      return $("<span class='tick-seperator'>" + content + "</span>").appendTo(this.element);
+    Tick.prototype.build_separator = function(content) {
+      return $("<span class='tick-separator'>" + content + "</span>").appendTo(this.element);
     };
 
     Tick.prototype.update_container = function(container, digit) {
