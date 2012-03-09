@@ -59,8 +59,8 @@ class Tick
       incremental: options.incremental or 1
       delay      : options.delay       or 1000
 
-      separators:  if options.separators then true else false
-      autostart :  if options.autostart  then true else false
+      separators:  if options.separators? then options.separators else false
+      autostart :  if options.autostart?  then options.autostart  else true
 
 
     # extract the actual integer value without separators

@@ -27,21 +27,21 @@
 
   /*
     The acutal Ticker logic. The stored value is
-    represented by a span/element per digit (and seperator).
+    represented by a span/element per digit (and separator).
   
     Attributes
   
       options     object    all runtime options
       element     object    the element that is used for this ticker
       value     int     whatever value you pass in to the ticker
-      seperators    array   a list of the all seperators that were found inbetween all digits
+      separators    array   a list of the all separators that were found inbetween all digits
                     all digits are represented by an empty element
   
     Options
   
       incremental   int     the amount by which the target value is to be increased
       delay (ms)    int     the time after which the target value is being increased
-      seperators    boolean   if true, all arbitrary characters inbetween digits are wrapped in seperated elements
+      separators    boolean   if true, all arbitrary characters inbetween digits are wrapped in seperated elements
                     if false, these characters are stripped out
       autostart   boolean   whether or not to start the ticker when instantiated
   
@@ -61,11 +61,11 @@
       this.options = {
         incremental: options.incremental || 1,
         delay: options.delay || 1000,
-        seperators: options.seperators ? true : false,
-        autostart: options.autostart ? true : false
+        separators: options.separators != null ? options.separators : false,
+        autostart: options.autostart != null ? options.autostart : true
       };
       this.value = Number(this.element.html().replace(/[^\d.]/g, ''));
-      this.seperators = this.element.html().trim().split(/[\d]/i);
+      this.separators = this.element.html().trim().split(/[\d]/i);
       this.element.addClass('tick-active');
       if (this.options.autostart) this.start();
     }
@@ -73,11 +73,11 @@
     Tick.prototype.render = function() {
       var container, containers, digits, i, _len, _ref, _results;
       digits = String(this.value).split('');
-      containers = this.element.children(':not(.tick-seperator)');
+      containers = this.element.children(':not(.tick-separator)');
       if (digits.length !== containers.length) {
         for (i = 0, _ref = digits.length - containers.length; 0 <= _ref ? i < _ref : i > _ref; 0 <= _ref ? i++ : i--) {
-          if (this.options.seperators && this.seperators[i]) {
-            this.build_seperator(this.seperators[i]);
+          if (this.options.separators && this.separators[i]) {
+            this.build_separator(this.separators[i]);
           }
           containers.push(this.build_container(i));
         }
@@ -98,8 +98,8 @@
       return $('<span></span>').appendTo(this.element);
     };
 
-    Tick.prototype.build_seperator = function(content) {
-      return $("<span class='tick-seperator'>" + content + "</span>").appendTo(this.element);
+    Tick.prototype.build_separator = function(content) {
+      return $("<span class='tick-separator'>" + content + "</span>").appendTo(this.element);
     };
 
     Tick.prototype.update_container = function(container, digit) {
