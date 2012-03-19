@@ -26,6 +26,7 @@
   };
 
   /*
+  
     The acutal Ticker logic. The stored value is
     represented by a span/element per digit (and separator).
   
@@ -33,17 +34,20 @@
   
       options     object    all runtime options
       element     object    the element that is used for this ticker
-      value     int     whatever value you pass in to the ticker
-      separators    array   a list of the all separators that were found inbetween all digits
-                    all digits are represented by an empty element
+      value       int       whatever value you pass in to the ticker
+      separators  array     a list of the all separators that were found inbetween all digits
+                            all digits are represented by an empty element
+      running     boolean   indicates whether the ticker has been started
+      increment   function  callback used to update @value on every tick
   
     Options
   
-      incremental   int     the amount by which the target value is to be increased
-      delay (ms)    int     the time after which the target value is being increased
+      incremental   mixed     can be either a fixed numeric value that gets added to the base value on each tick or
+                              a function that gets called with the current value and must return the updated number
+      delay (ms)    int       the time after which the target value is being increased
       separators    boolean   if true, all arbitrary characters inbetween digits are wrapped in seperated elements
-                    if false, these characters are stripped out
-      autostart   boolean   whether or not to start the ticker when instantiated
+                              if false, these characters are stripped out
+      autostart     boolean   whether or not to start the ticker when instantiated
   
     Events
   
@@ -59,16 +63,30 @@
       if (options == null) options = {};
       this.running = false;
       this.options = {
-        incremental: options.incremental || 1,
         delay: options.delay || 1000,
         separators: options.separators != null ? options.separators : false,
         autostart: options.autostart != null ? options.autostart : true
       };
+      this.increment = this.build_increment_callback(options.incremental);
       this.value = Number(this.element.html().replace(/[^\d.]/g, ''));
       this.separators = this.element.html().trim().split(/[\d]/i);
       this.element.addClass('tick-active');
       if (this.options.autostart) this.start();
     }
+
+    Tick.prototype.build_increment_callback = function(option) {
+      if ((option != null) && {}.toString.call(option) === '[object Function]') {
+        return option;
+      } else if (typeof option === 'number') {
+        return function(val) {
+          return val + option;
+        };
+      } else {
+        return function(val) {
+          return val + 1;
+        };
+      }
+    };
 
     Tick.prototype.render = function() {
       var container, containers, digits, i, _len, _ref, _results;
@@ -126,7 +144,7 @@
     */
 
     Tick.prototype.tick = function() {
-      this.value += this.options.incremental;
+      this.value = this.increment(this.value);
       this.render();
       return this.set_timer();
     };
