@@ -38,7 +38,7 @@
       separators  array     a list of the all separators that were found inbetween all digits
                             all digits are represented by an empty element
       running     boolean   indicates whether the ticker has been started
-      increment   function  callback used on every tick to update @value
+      increment   function  callback used to update @value on every tick
   
     Options
   

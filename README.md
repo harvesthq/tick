@@ -9,7 +9,7 @@ Attributes
 ----------
 
 * `running` _boolean_
-  indicates whether the ticker is active
+  indicates whether the ticker has been started
 
 * `options` _object_
   all runtime options
@@ -23,12 +23,15 @@ Attributes
 * `separators` _array_
   a list of all separators
 
+* `increment` _function_
+  callback used to update @value on every tick
+
 
 Options
 -------
 
-* `incremental` _int_
-  the amount by which the target value is to be increased
+* `incremental` _mixed_
+  can be either a fixed numeric value that gets added to the base value on each tick or a function that gets called with the current value and must return the updated number
 
 * `delay` _int_
   the time in milliseconds after which the target value is being increased
