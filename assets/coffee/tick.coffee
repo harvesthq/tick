@@ -24,6 +24,7 @@ $.fn.ticker = (options) ->
 
 
 ###
+
   The acutal Ticker logic. The stored value is
   represented by a span/element per digit (and separator).
 
@@ -31,23 +32,27 @@ $.fn.ticker = (options) ->
 
     options     object    all runtime options
     element     object    the element that is used for this ticker
-    value     int     whatever value you pass in to the ticker
-    separators    array   a list of the all separators that were found inbetween all digits
-                  all digits are represented by an empty element
+    value       int       whatever value you pass in to the ticker
+    separators  array     a list of the all separators that were found inbetween all digits
+                          all digits are represented by an empty element
+    running     boolean   indicates whether the ticker has been started
+    increment   function  callback used on every tick to update @value
 
   Options
 
-    incremental   int     the amount by which the target value is to be increased
-    delay (ms)    int     the time after which the target value is being increased
+    incremental   mixed     can be either a fixed numeric value that gets added to the base value on each tick or
+                            a function that gets called with the current value and must return the updated number
+    delay (ms)    int       the time after which the target value is being increased
     separators    boolean   if true, all arbitrary characters inbetween digits are wrapped in seperated elements
-                  if false, these characters are stripped out
-    autostart   boolean   whether or not to start the ticker when instantiated
+                            if false, these characters are stripped out
+    autostart     boolean   whether or not to start the ticker when instantiated
 
   Events
 
     onStart     
     onTick      
     onStop      
+
 ###
 class Tick
 
@@ -56,11 +61,11 @@ class Tick
     @running = no
 
     @options =
-      incremental: options.incremental or 1
-      delay      : options.delay       or 1000
+      delay     : options.delay or 1000
+      separators: if options.separators? then options.separators else false
+      autostart : if options.autostart?  then options.autostart  else true
 
-      separators:  if options.separators? then options.separators else false
-      autostart :  if options.autostart?  then options.autostart  else true
+    @increment = @build_increment_callback( options.incremental )
 
 
     # extract the actual integer value without separators
@@ -70,8 +75,23 @@ class Tick
     @separators = @element.html().trim().split( /[\d]/i )
 
     @element.addClass( 'tick-active' )
-    this.start() if @options.autostart
 
+
+    @start() if @options.autostart
+
+
+  # create a callback for updating the ticker value based on the passed option
+  build_increment_callback: (option) ->
+
+    # check for valid function, inspired by http://stackoverflow.com/a/7356528
+    if option? and {}.toString.call( option ) is '[object Function]'
+      option
+
+    else if typeof option is 'number'
+      (val) -> val + option
+
+    else
+      (val) -> val + 1
 
 
   render: () ->
@@ -85,13 +105,13 @@ class Tick
       for i in [0...(digits.length - containers.length)]
 
         # insert the separators at their designated position
-        this.build_separator( @separators[ i ]) if @options.separators and @separators[ i ]
+        @build_separator( @separators[ i ]) if @options.separators and @separators[ i ]
 
-        containers.push( this.build_container( i ))
+        containers.push( @build_container( i ))
 
 
     # insert/update the corresponding digit into each container
-    this.update_container( container, digits[ i ]) for container, i in containers
+    @update_container( container, digits[ i ]) for container, i in containers
 
 
 
@@ -118,14 +138,14 @@ class Tick
   refresh_delay: (new_delay) ->
     clearTimeout( @timer );
     @options.delay = new_delay
-    this.set_timer()
+    @set_timer()
 
 
   set_timer: () ->
 
     # setInterval() can cause problems in inactive tabs (see: http://goo.gl/pToBS)
     @timer = setTimeout( () =>
-      this.tick()
+      @tick()
     , @options.delay ) if @running
 
 
@@ -133,9 +153,9 @@ class Tick
     Events
   ###
   tick: () ->
-    @value += @options.incremental
-    this.render()
-    this.set_timer()
+    @value = @increment( @value ) #@options.incremental
+    @render()
+    @set_timer()
 
 
   ###
@@ -143,10 +163,10 @@ class Tick
   ###
   start: () ->
     @element.empty()
-    this.render()
+    @render()
 
     @running = yes
-    this.set_timer()
+    @set_timer()
 
 
   stop: () ->
@@ -211,7 +231,7 @@ class Tick_Flip extends Tick
 
   # calculate the step value for the respective half of the flip card
   upper: (now) -> now / 100
-  lower: (now) => 1 - this.upper( now )
+  lower: (now) => 1 - @upper( now )
 
 
   update_container: (container, digit) ->
@@ -221,10 +241,10 @@ class Tick_Flip extends Tick
 
     if( @running and parts.eq( 2 ).html() != digit )
 
-      this.flip( parts.eq( 1 ), digit, this.upper, @options.delay / 4, () ->
+      @flip( parts.eq( 1 ), digit, @upper, @options.delay / 4, () ->
         )
 
-      this.flip( parts.eq( 3 ).html( digit ), digit, this.lower, @options.delay / 3, () ->
+      @flip( parts.eq( 3 ).html( digit ), digit, @lower, @options.delay / 3, () ->
         parts.eq( 0 ).html( digit ))
 
 
