@@ -44,7 +44,7 @@ $move_shadow_color: rgb(0,0,0);
 
   font: {
     size: 4.75em;
-    family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    family: "Myriad Pro", sans-serif;
   }
 
   text: {
@@ -133,11 +133,7 @@ $move_shadow_color: rgb(0,0,0);
 
       box-shadow: 0 -4px 4px -3px $move_shadow_color;
 
-      transform-origin: bottom left;
-      -webkit-transform-origin: bottom left;
-      -moz-transform-origin: bottom left;
-      -ms-transform-origin: bottom left;
-      -o-transform-origin: bottom left;
+      @include transform-origin(bottom, left);
     }
     .tick-flip .tick-new-move {
       z-index: 997;
@@ -152,11 +148,7 @@ $move_shadow_color: rgb(0,0,0);
 
       box-shadow: 0 4px 4px -3px $move_shadow_color;
 
-      transform-origin: top left;
-      -webkit-transform-origin: top left;
-      -moz-transform-origin: top left;
-      -ms-transform-origin: top left;
-      -o-transform-origin: top left;
+      @include transform-origin(top, left);
     }
 
 
@@ -194,17 +186,17 @@ $move_shadow_color: rgb(0,0,0);
     content: '';
 
     width: 100%;
-    height: 30%;
+    height: 35%;
     border-radius: 5px;
   }
   .tick-scroll:before {
-    @include filter-gradient(rgb(40,40,40), rgba(40,40,40,0), vertical);
-    @include background-image(linear-gradient(top,  rgba(40,40,40,1) 0%,rgba(40,40,40,1) 20%,rgba(40,40,40,0) 100%));
+    @include filter-gradient(rgb(30,30,30), rgba(30,30,30,0), vertical);
+    @include background-image(linear-gradient(top,  rgba(30,30,30,1) 0%,rgba(30,30,30,1) 10%,rgba(30,30,30,0) 100%));
   }
   .tick-scroll:after {
     bottom: 0;
-    @include filter-gradient(rgba(40,40,40,0), rgb(40,40,40), vertical);
-    @include background-image(linear-gradient(top,  rgba(40,40,40,0) 0%,rgba(40,40,40,1) 80%,rgba(40,40,40,1) 100%));
+    @include filter-gradient(rgba(30,30,30,0), rgb(30,30,30), vertical);
+    @include background-image(linear-gradient(top,  rgba(30,30,30,0) 0%,rgba(30,30,30,1) 90%,rgba(30,30,30,1) 100%));
   }
   /*
     +++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -215,11 +207,14 @@ $move_shadow_color: rgb(0,0,0);
     display: inline-block;
     width: 50px;
 
-    border-right: 1px solid rgb(150,150,150);
-    border-left: 1px solid rgb(150,150,150);
+    border-right: 1px solid rgb(110,110,110);
+    border-left: 1px solid rgb(110,110,110);
     margin: 0 2px;
 
-    background-color: rgb(255,255,255);
+    text-shadow: 0 -1px 0 rgb(0,0,0);
+    color: rgb(255,255,255);
+    background-color: rgb(80,80,80);
+    box-shadow: 0 0 3px rgb(0,0,0);
   }
     .tick-scroll .tick-wheel span {
       display: block;
@@ -228,39 +223,4 @@ $move_shadow_color: rgb(0,0,0);
 
   .tick-scroll .tick-seperator {
     font-weight: normal;
-  }
-
-
-
-/*
-  Tick.tick-slide
-*/
-.tick-slide {
-  display: inline-block;
-  padding: 10px;
-
-  color: rgb(255,255,255);
-  background-color: rgb(20,20,20);
-}
-  .tick-slide span {
-    display: inline-block;
-
-    width: 50px;
-    height: 65px;
-
-    border-right: 1px solid rgb(120,120,120);
-    border-left: 1px solid rgb(120,120,120);
-    margin-right: 2px;
-
-    font-size: 1.5em;
-    background: url('../img/sprite.gif');
-    text-indent: -999em;
-  }
-
-  .tick-slide .seperator {
-    width: 20px;
-    padding-right: 2px;
-    padding-left: 0;
-    border: 0 none;
-    background: url('../img/seperator.gif') no-repeat top center;
   }

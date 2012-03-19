@@ -2,7 +2,7 @@ $( document ).ready( function()
 {
   $( '.tick' ).ticker(
   {
-    delay       : 700,
+    delay       : 1000,
     separators  : true
   });
 });
