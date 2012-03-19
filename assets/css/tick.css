@@ -42,7 +42,7 @@
 }
 
 /* line 58, ../scss/tick.scss */
-.tick-flip .tick-seperator {
+.tick-flip .tick-separator {
   margin: 0 2px;
   font-size: 0.6em;
   color: #b4b4b4;
@@ -258,6 +258,6 @@
 }
 
 /* line 224, ../scss/tick.scss */
-.tick-scroll .tick-seperator {
+.tick-scroll .tick-separator {
   font-weight: normal;
 }

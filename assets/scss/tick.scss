@@ -8,7 +8,7 @@ $border_color: rgb(30,30,30);
 $box_shadow_color: rgb(150,150,150);
 
 $move_background: rgb(255,255,255);
-$seperator_color: rgb(180,180,180);
+$separator_color: rgb(180,180,180);
 $bar_color: rgb(50,50,50);
 $bar_height: 1px;
 
@@ -55,10 +55,10 @@ $move_shadow_color: rgb(0,0,0);
   width: auto;
   color: $foreground;
 }
-  .tick-flip .tick-seperator {
+  .tick-flip .tick-separator {
     margin: 0 2px;
     font-size: 0.6em;
-    color: $seperator_color;
+    color: $separator_color;
   }
   .tick-flip .tick-wrapper {
     position: relative;
@@ -221,6 +221,6 @@ $move_shadow_color: rgb(0,0,0);
       padding: 16px 0;
     }
 
-  .tick-scroll .tick-seperator {
+  .tick-scroll .tick-separator {
     font-weight: normal;
   }
