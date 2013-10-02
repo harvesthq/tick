@@ -261,13 +261,14 @@
     };
 
     Tick_Scroll.prototype.update_container = function(container, digit) {
+      var elementHeight = $(container).children().first().outerHeight(true);
       if (this.running) {
         return $(container).animate({
-          top: digit * -96
+          top: digit * -elementHeight
         }, this.options.delay);
       } else {
         return $(container).css({
-          top: digit * -96
+          top: digit * -elementHeight
         });
       }
     };
