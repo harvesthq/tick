@@ -49,9 +49,9 @@ $.fn.ticker = (options) ->
 
   Events
 
-    onStart     
-    onTick      
-    onStop      
+    onStart
+    onTick
+    onStop
 
 ###
 class Tick
