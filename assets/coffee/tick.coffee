@@ -100,15 +100,14 @@ class Tick
     containers  = @element.children( ':not(.tick-separator)' )
 
     # add new containers for each digit that doesnt exist (if they do, just update them)
-    if digits.length isnt containers.length
-
+    if digits.length > containers.length
       for i in [0...(digits.length - containers.length)]
-
         # insert the separators at their designated position
         @build_separator( @separators[ i ]) if @options.separators and @separators[ i ]
-
         containers.push( @build_container( i ))
-
+    else if digits.length < containers.length
+      for i in [digits.length...containers.length]
+        containers.last().remove()
 
     # insert/update the corresponding digit into each container
     @update_container( container, digits[ i ]) for container, i in containers

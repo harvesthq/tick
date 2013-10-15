@@ -94,19 +94,23 @@
     };
 
     Tick.prototype.render = function() {
-      var container, containers, digits, i, _i, _j, _len, _ref, _results;
+      var container, containers, digits, i, _i, _j, _k, _len, _ref, _ref1, _ref2, _results;
       digits = String(this.value).split('');
       containers = this.element.children(':not(.tick-separator)');
-      if (digits.length !== containers.length) {
+      if (digits.length > containers.length) {
         for (i = _i = 0, _ref = digits.length - containers.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
           if (this.options.separators && this.separators[i]) {
             this.build_separator(this.separators[i]);
           }
           containers.push(this.build_container(i));
         }
+      } else if (digits.length < containers.length) {
+        for (i = _j = _ref1 = digits.length, _ref2 = containers.length; _ref1 <= _ref2 ? _j < _ref2 : _j > _ref2; i = _ref1 <= _ref2 ? ++_j : --_j) {
+          containers.last().remove();
+        }
       }
       _results = [];
-      for (i = _j = 0, _len = containers.length; _j < _len; i = ++_j) {
+      for (i = _k = 0, _len = containers.length; _k < _len; i = ++_k) {
         container = containers[i];
         _results.push(this.update_container(container, digits[i]));
       }
