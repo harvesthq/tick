@@ -16,6 +16,7 @@
   border-radius: 5px;
   margin-bottom: 0.125em;
   box-shadow: 0 0 6px #969696;
+  white-space: nowrap;
   /* background: $gradient; */
   background-color: #2d2d2d;
   *zoom: 1;

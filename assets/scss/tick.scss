@@ -29,6 +29,7 @@ $move_shadow_color: rgb(0,0,0);
   border-radius: 5px;
   margin-bottom: 0.125em;
   box-shadow: 0 0 6px $box_shadow_color;
+  white-space: nowrap;
 
   /* background: $gradient; */
   background-color: rgb(45,45,45);
