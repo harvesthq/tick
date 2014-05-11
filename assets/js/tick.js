@@ -49,6 +49,7 @@
       separators    boolean   if true, all arbitrary characters inbetween digits are wrapped in seperated elements
                               if false, these characters are stripped out
       autostart     boolean   whether or not to start the ticker when instantiated
+      minlength     int       minimum length of the element, leading zeros will be put in place if not long enough
   
     Events
   
@@ -68,7 +69,8 @@
       this.options = {
         delay: options.delay || 1000,
         separators: options.separators != null ? options.separators : false,
-        autostart: options.autostart != null ? options.autostart : true
+        autostart: options.autostart != null ? options.autostart : true,
+        minlength: options.minlength || 1
       };
       this.increment = this.build_increment_callback(options.incremental);
       this.value = Number(this.element.html().replace(/[^\d.]/g, ''));
@@ -95,8 +97,14 @@
 
     Tick.prototype.render = function() {
       var container, containers, digits, i, _i, _j, _k, _len, _ref, _ref1, _ref2, _results;
-      digits = String(this.value).split('');
+      digits = String(this.value);
       containers = this.element.children(':not(.tick-separator)');
+      if (digits.length < this.options.minlength) {
+        while (digits.length < this.options.minlength) {
+          digits = "0" + digits;
+        }
+        digits.split('');
+      }
       if (digits.length > containers.length) {
         for (i = _i = 0, _ref = digits.length - containers.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
           if (this.options.separators && this.separators[i]) {

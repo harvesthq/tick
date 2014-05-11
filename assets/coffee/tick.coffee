@@ -46,6 +46,7 @@ $.fn.ticker = (options) ->
     separators    boolean   if true, all arbitrary characters inbetween digits are wrapped in seperated elements
                             if false, these characters are stripped out
     autostart     boolean   whether or not to start the ticker when instantiated
+    minlength     int       minimum length of the element, leading zeros will be put in place if not long enough
 
   Events
 
@@ -64,6 +65,7 @@ class Tick
       delay     : options.delay or 1000
       separators: if options.separators? then options.separators else false
       autostart : if options.autostart?  then options.autostart  else true
+      minlength : options.minlength or 1
 
     @increment = @build_increment_callback( options.incremental )
 
@@ -96,8 +98,14 @@ class Tick
 
   render: () ->
 
-    digits      = String( @value ).split( '' )
+    digits      = String( @value )
     containers  = @element.children( ':not(.tick-separator)' )
+
+    # add leading zeros if length is not long enough
+    if digits.length < @options.minlength
+      while (digits.length < @options.minlength)
+        digits = "0" + digits
+      digits.split( '' )
 
     # add new containers for each digit that doesnt exist (if they do, just update them)
     if digits.length > containers.length
