@@ -103,7 +103,6 @@
         while (digits.length < this.options.minlength) {
           digits = "0" + digits;
         }
-        digits.split('');
       }
       if (digits.length > containers.length) {
         for (i = _i = 0, _ref = digits.length - containers.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
