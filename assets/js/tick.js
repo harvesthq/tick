@@ -102,6 +102,7 @@
       if (digits.length < this.options.minlength) {
         while (digits.length < this.options.minlength) {
           digits = "0" + digits;
+          this.separators.unshift('');
         }
       }
       if (digits.length > containers.length) {
