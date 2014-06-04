@@ -70,7 +70,7 @@
         delay: options.delay || 1000,
         separators: options.separators != null ? options.separators : false,
         autostart: options.autostart != null ? options.autostart : true,
-        minlength: options.minlength || 1
+        minlength: parseInt(options.minlength, 10) || 1
       };
       this.increment = this.build_increment_callback(options.incremental);
       this.value = Number(this.element.html().replace(/[^\d.]/g, ''));

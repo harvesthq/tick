@@ -65,7 +65,7 @@ class Tick
       delay     : options.delay or 1000
       separators: if options.separators? then options.separators else false
       autostart : if options.autostart?  then options.autostart  else true
-      minlength : options.minlength or 1
+      minlength : parseInt(options.minlength, 10) or 1
 
     @increment = @build_increment_callback( options.incremental )
 
