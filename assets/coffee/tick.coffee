@@ -105,7 +105,6 @@ class Tick
     if digits.length < @options.minlength
       while (digits.length < @options.minlength)
         digits = "0" + digits
-        @separators.unshift('')
 
     # add new containers for each digit that doesnt exist (if they do, just update them)
     if digits.length > containers.length
