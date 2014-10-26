@@ -141,8 +141,8 @@
     };
 
     Tick.prototype.set_timer = function() {
-      var _this = this;
-      var _delay;
+      var _this = this,
+          _delay;
       if (this.running) {
         if (this.options.delay.length == 1) {
           _delay = this.options.delay[0];
