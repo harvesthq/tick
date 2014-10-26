@@ -142,10 +142,18 @@
 
     Tick.prototype.set_timer = function() {
       var _this = this;
+      var _delay;
       if (this.running) {
+        if (this.options.delay.length == 1) {
+          _delay = this.options.delay[0];
+        } else if (this.options.delay.length == 2) {
+          _delay = Math.floor( Math.random() * ( this.options.delay[1] - this.options.delay[0] + 1) + this.options.delay[0] );
+        } else {
+          _delay = 1000;
+        }
         return this.timer = setTimeout(function() {
           return _this.tick();
-        }, this.options.delay);
+        }, _delay );
       }
     };
 
