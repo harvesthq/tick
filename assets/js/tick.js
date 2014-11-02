@@ -141,19 +141,19 @@
     };
 
     Tick.prototype.set_timer = function() {
-      var _this = this,
-          _delay;
+      var _delay,
+        _this = this;
       if (this.running) {
-        if (this.options.delay.length == 1) {
-          _delay = this.options.delay[0];
-        } else if (this.options.delay.length == 2) {
-          _delay = Math.floor( Math.random() * ( this.options.delay[1] - this.options.delay[0] + 1) + this.options.delay[0] );
-        } else {
-          _delay = 1000;
+        _delay = 1000;
+        if (this.options.delay === parseInt(this.options.delay, 10)) {
+          _delay = this.options.delay;
+        }
+        if (this.options.delay instanceof Array && this.options.delay[0] === parseInt(this.options.delay[0], 10) && this.options.delay[1] === parseInt(this.options.delay[1], 10)) {
+          _delay = Math.floor(Math.random() * (this.options.delay[1] - this.options.delay[0] + 1) + this.options.delay[0]);
         }
         return this.timer = setTimeout(function() {
           return _this.tick();
-        }, _delay );
+        }, _delay);
       }
     };
 
