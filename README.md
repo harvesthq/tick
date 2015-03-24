@@ -41,20 +41,3 @@ Options
 
 * `autostart` _boolean_
   whether or not to start the ticker when instantiated
-
-
-Events
-------
-
-* onStart
-
-* onTick
-
-* onStop
-
-
-
-
-
-
-
