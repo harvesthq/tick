@@ -3,6 +3,18 @@ Tick
 
 Tick is a JavaScript plugin that makes visualizing dynamically changing numbers a breeze.
 
+Instance Methods
+----------------
+
+**Note:** `$().ticker` always returns an _array_ of `Tick` instances, so always
+call these methods on that array’s element(s)!
+
+* `start`
+  Renders and starts the `Tick` instance. Returns the instance’s timer or
+  `undefined` if it was already running.
+
+* `stop`
+  Stops the `Tick` instance and clears out the timer. Returns `false`.
 
 
 Attributes
