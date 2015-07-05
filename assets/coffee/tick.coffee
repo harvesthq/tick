@@ -141,11 +141,21 @@ class Tick
 
 
   set_timer: () ->
+    if @running
+      _delay = 1000
 
-    # setInterval() can cause problems in inactive tabs (see: http://goo.gl/pToBS)
-    @timer = setTimeout( () =>
-      @tick()
-    , @options.delay ) if @running
+      # if delay is Integer
+      _delay = @options.delay if @options.delay is parseInt(@options.delay, 10)
+
+      # if delay is Array of at least two Integers
+      _delay = Math.floor( Math.random() * ( this.options.delay[1] - this.options.delay[0] + 1) + this.options.delay[0] ) if @options.delay instanceof Array and
+        @options.delay[0] is parseInt(@options.delay[0], 10) and
+        @options.delay[1] is parseInt(@options.delay[1], 10)
+
+      # setInterval() can cause problems in inactive tabs (see: http://goo.gl/pToBS)
+      @timer = setTimeout( () =>
+        @tick()
+      , _delay )
 
 
   ###
