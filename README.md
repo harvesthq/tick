@@ -51,5 +51,8 @@ Options
 * `separators` _boolean_
   if true, all arbitrary characters inbetween digits are wrapped in seperated elements. if false, these characters are stripped out
 
+* `maxValue` _int_
+  maximum value after the ticker would stop ticking
+
 * `autostart` _boolean_
   whether or not to start the ticker when instantiated
